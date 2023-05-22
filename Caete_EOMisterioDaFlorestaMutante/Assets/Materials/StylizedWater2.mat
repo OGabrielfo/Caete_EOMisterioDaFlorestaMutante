@@ -43,7 +43,7 @@ Material:
     - _FoamAmount: 0.21
     - _FoamCutOff: 1.62
     - _HighFrequency: 500
-    - _NormalStrength: 0.3
+    - _NormalStrength: 0.1
     - _QueueControl: 0
     - _RefractionScale: 0.03
     - _RefractionSpeed: 0.05
