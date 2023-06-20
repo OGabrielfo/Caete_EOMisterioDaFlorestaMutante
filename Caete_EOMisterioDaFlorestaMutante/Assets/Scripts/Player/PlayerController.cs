@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    //public float jumpForce;
-    //public int jumpLimit;
+    public float jumpForce;
+    public int jumpLimit;
     //public float ClimbSpeed = 3f;
     //public float SwimSpeed = 5f;
     //public float empuxo = 5f;
@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     //public float vida;
     //public float vidaMax;
     //public float dano;
-    //public Transform groundCheck;
-    //public LayerMask ground;
+    public Transform groundCheck;
+    public LayerMask ground;
     //public GameObject AttackCol;
     //public LayerMask wall;
     //public Transform wallCheck;
@@ -38,15 +38,15 @@ public class PlayerController : MonoBehaviour
    // public Image _vidaUI;
     
 
-    //private bool _faceRight = true;
-    //private int _jumpCounter;
-    //private bool _isTatuTransform = false;
-    //private bool _isAttacking = false;
-    //private bool _isClimbing = false;
-    //private bool _isSwiming = false;
-    //private bool _isSwinging = false;
-    //private bool _canDash = true;
-    //private float timer = 2f;
+    private bool _faceRight = true;
+    private int _jumpCounter;
+    private bool _isTatuTransform = false;
+    private bool _isAttacking = false;
+    private bool _isClimbing = false;
+    private bool _isSwiming = false;
+    private bool _isSwinging = false;
+    private bool _canDash = true;
+    private float timer = 2f;
 
 
     void Awake()
@@ -81,11 +81,11 @@ public class PlayerController : MonoBehaviour
             _canDash = false;
             StartCoroutine("Dash");
         }
-
+        */
         if (!_isAttacking || !_isSwinging || !_canDash) {
             PlayerMove();
         }
-
+        
         if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform)
         {
             Jump();
@@ -93,9 +93,9 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded())
         {
-            _jumpCounter = 1;
+            _jumpCounter = 0;
         }
-
+        /*
         if (Input.GetButtonDown("Attack") && !_isTatuTransform)
         {
             AttackOn();
@@ -155,10 +155,11 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
-        /*
+        
         _anim.SetBool("Idle", _movement == Vector3.zero);
         _anim.SetBool("isGrounded", IsGrounded());
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);
+        /*
         _anim.SetBool("Transform",_isTatuTransform);
         _anim.SetBool("isClimbing", _isClimbing);
 
@@ -171,7 +172,7 @@ public class PlayerController : MonoBehaviour
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _movement = new Vector3(horizontalInput, 0f, 0f);
-        /*if (horizontalInput < 0f && _faceRight == true)
+        if (horizontalInput < 0f && _faceRight == true)
         {
             Flip();
         }
@@ -179,7 +180,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-        */
+        
         float horizontalVelocity = _movement.normalized.x * speed;
         _rigidbody.velocity = new Vector3(horizontalVelocity, _rigidbody.velocity.y, _rigidbody.velocity.z);
     }
@@ -237,7 +238,7 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
+    */
     void Jump()
     {
         _rigidbody.velocity = new Vector3(0f, 0f, 0f);
@@ -266,7 +267,7 @@ public class PlayerController : MonoBehaviour
         return Physics.CheckSphere(groundCheck.position, 0.01f, ground);
 
     }
-
+    /*
     void AttackOn()
     {
         if (IsGrounded())
