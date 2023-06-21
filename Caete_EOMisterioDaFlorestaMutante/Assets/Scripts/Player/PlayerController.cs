@@ -42,10 +42,12 @@ public class PlayerController : MonoBehaviour
     private int _jumpCounter;
     private bool _isTatuTransform = false;
     private bool _isAttacking = false;
+    private int _attackCounter = 0;
     private bool _isClimbing = false;
     private bool _isSwiming = false;
     private bool _isSwinging = false;
     private bool _canDash = true;
+    private bool _isDashing = false;
     private float timer = 2f;
 
     void Awake()
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
         }
         
-        if (!_isAttacking && !_isSwinging && _canDash) {
+        if (!_isAttacking && !_isSwinging && !_isDashing) {
             PlayerMove();
         }
         
@@ -279,13 +281,34 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody.velocity = Vector3.zero;
         }
+        _attackCounter++;
         _anim.SetTrigger("Attack");
         AttackCol.SetActive(true);
+
+        if (_attackCounter == 1)
+        {
+            AttackCol.GetComponent<BoxCollider>().enabled = true;
+            AttackCol.GetComponent<CapsuleCollider>().enabled = false;
+            AttackCol.GetComponent<SphereCollider>().enabled = false;
+        }
+        else if (_attackCounter == 2)
+        {
+            AttackCol.GetComponent<BoxCollider>().enabled = false;
+            AttackCol.GetComponent<CapsuleCollider>().enabled = true;
+            AttackCol.GetComponent<SphereCollider>().enabled = false;
+        }
+        else
+        {
+            AttackCol.GetComponent<BoxCollider>().enabled = false;
+            AttackCol.GetComponent<CapsuleCollider>().enabled = false;
+            AttackCol.GetComponent<SphereCollider>().enabled = true;
+        }
         _isAttacking = true;
     }
 
     void AttackOff()
     {
+        _attackCounter = 0;
         AttackCol.SetActive(false);
         _isAttacking = false;
     }
@@ -303,6 +326,8 @@ public class PlayerController : MonoBehaviour
     {
         float startTime = Time.time;
         Vector3 dashDirection;
+        _isDashing = true;
+        _rigidbody.useGravity = false;
 
         if (transform.rotation.eulerAngles.y == 0f)
         {
@@ -320,10 +345,16 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = dashDirection * dashDistance;
             yield return null;
         }
+        _rigidbody.useGravity = true;
 
         _rigidbody.velocity = Vector3.zero;
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
+    }
+
+    public void EndDash()
+    {
+        _isDashing = false;
     }
     /*
 
