@@ -13,20 +13,20 @@ public class PlayerController : MonoBehaviour
     //public float SwimSpeed = 5f;
     //public float empuxo = 5f;
     //public float flutuacao = 10f;
-    //public float vida;
-    //public float vidaMax;
-    //public float dano;
+    public float vida;
+    public float vidaMax;
+    public float dano;
     public Transform groundCheck;
     public LayerMask ground;
-    //public GameObject AttackCol;
+    public GameObject AttackCol;
     //public LayerMask wall;
     //public Transform wallCheck;
     //public LayerMask water;
     //public Transform waterCheck;
     //public Vector3 vineVelocityWhenGrabbed;
-    //public float dashDistance;
-    //public float dashTime;
-    //public float dashCooldown;
+    public float dashDistance;
+    public float dashTime;
+    public float dashCooldown;
     
 
 
@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
     private bool _canDash = true;
     private float timer = 2f;
 
-
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -62,7 +61,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        PlayerMove();
         /*
         if (_isSwinging)
         {
@@ -75,14 +73,15 @@ public class PlayerController : MonoBehaviour
                 _rigidbody.useGravity = true;
             }
         }
-
+        */
         if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform))
         {
             _canDash = false;
-            StartCoroutine("Dash");
+            _anim.SetTrigger("IsDashing");
+            _rigidbody.velocity = Vector3.zero;
         }
-        */
-        if (!_isAttacking || !_isSwinging || !_canDash) {
+        
+        if (!_isAttacking && !_isSwinging && _canDash) {
             PlayerMove();
         }
         
@@ -91,16 +90,12 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
 
-        if (IsGrounded())
-        {
-            _jumpCounter = 0;
-        }
-        /*
-        if (Input.GetButtonDown("Attack") && !_isTatuTransform)
+        
+        if (Input.GetButtonDown("Attack") && !_isTatuTransform && !_isSwiming && !_isClimbing)
         {
             AttackOn();
         }
-
+        /*
         if (Input.GetButtonDown("Transform") && !_isClimbing && !_isAttacking && !_isSwiming)
         {
             TatuTransform();
@@ -264,10 +259,20 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, 0.01f, ground);
+        return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
 
     }
-    /*
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Reinicia os pulos quando o jogador toca no chão
+        if (collision.gameObject.CompareTag("Ground") && IsGrounded())
+        {
+            _jumpCounter = 0;
+        }
+    }
+
+    
     void AttackOn()
     {
         if (IsGrounded())
@@ -291,16 +296,24 @@ public class PlayerController : MonoBehaviour
         {
             vida -= quantidade;
         }
-        
-
-
-        
     }
+    
 
     IEnumerator Dash()
     {
         float startTime = Time.time;
-        Vector3 dashDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+        Vector3 dashDirection;
+
+        if (transform.rotation.eulerAngles.y == 0f)
+        {
+            dashDirection = new Vector3(1f, 0f, 0f);
+        }
+        else
+        {
+            dashDirection = new Vector3(-1f, 0f, 0f);
+        }
+
+        //Vector3 dashDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
         
         while (Time.time < startTime + dashTime)
         {
@@ -312,7 +325,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
     }
-
+    /*
 
 
     private void OnTriggerEnter(Collider other)

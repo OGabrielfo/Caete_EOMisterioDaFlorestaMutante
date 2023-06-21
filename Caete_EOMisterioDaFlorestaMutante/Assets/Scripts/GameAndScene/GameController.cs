@@ -50,53 +50,59 @@ public class GameController : MonoBehaviour
     }
 
     public void NewGame() {
+        PlayerPrefs.DeleteAll();
+
         PlayerPrefs.SetInt("gamePlayed", 1);
 
         //Player
-        PlayerPrefs.GetInt("vidaMax", 3);
-        PlayerPrefs.GetInt("vidaAtual", 3);
-        PlayerPrefs.GetInt("limitePulo", 1);
-        PlayerPrefs.GetInt("pontos", 0);
+        PlayerPrefs.SetInt("vidaMax", 3);
+        PlayerPrefs.SetInt("vidaAtual", 3);
+        PlayerPrefs.SetInt("limitePulo", 1);
+        PlayerPrefs.SetInt("pontos", 0);
 
         //Bosses
-        PlayerPrefs.GetInt("mula", 0);
-        PlayerPrefs.GetInt("mapinguari", 0);
-        PlayerPrefs.GetInt("iara", 0);
-        PlayerPrefs.GetInt("boitata", 0);
-        PlayerPrefs.GetInt("homem", 0);
+        PlayerPrefs.SetInt("mula", 0);
+        PlayerPrefs.SetInt("mapinguari", 0);
+        PlayerPrefs.SetInt("iara", 0);
+        PlayerPrefs.SetInt("boitata", 0);
+        PlayerPrefs.SetInt("homem", 0);
 
         //Items
-        PlayerPrefs.GetInt("hpUp01", 0);
-        PlayerPrefs.GetInt("hpUp02", 0);
-        PlayerPrefs.GetInt("hpUp03", 0);
-        PlayerPrefs.GetInt("hpUp04", 0);
-        PlayerPrefs.GetInt("hpUp05", 0);
+        PlayerPrefs.SetInt("hpUp01", 0);
+        PlayerPrefs.SetInt("hpUp02", 0);
+        PlayerPrefs.SetInt("hpUp03", 0);
+        PlayerPrefs.SetInt("hpUp04", 0);
+        PlayerPrefs.SetInt("hpUp05", 0);
+
+        PlayerPrefs.Save();
 
     }
 
     public void SaveGame() {
         //Player
-        PlayerPrefs.GetInt("vidaMax", _vidaMax);
-        PlayerPrefs.GetInt("vidaAtual", _vidaAtual);
-        PlayerPrefs.GetInt("limitePulo", _limitePulo);
-        PlayerPrefs.GetInt("pontos", _pontos);
-        PlayerPrefs.GetFloat("posX", _posX);
-        PlayerPrefs.GetFloat("posY", _posY);
-        PlayerPrefs.GetFloat("posZ", _posZ);
+        PlayerPrefs.SetInt("vidaMax", _vidaMax);
+        PlayerPrefs.SetInt("vidaAtual", _vidaAtual);
+        PlayerPrefs.SetInt("limitePulo", _limitePulo);
+        PlayerPrefs.SetInt("pontos", _pontos);
+        PlayerPrefs.SetFloat("posX", _posX);
+        PlayerPrefs.SetFloat("posY", _posY);
+        PlayerPrefs.SetFloat("posZ", _posZ);
 
         //Bosses
-        PlayerPrefs.GetInt("mula", _mula);
-        PlayerPrefs.GetInt("mapinguari", _mapinguari);
-        PlayerPrefs.GetInt("iara", _iara);
-        PlayerPrefs.GetInt("boitata", _boitata);
-        PlayerPrefs.GetInt("homem", _homem);
+        PlayerPrefs.SetInt("mula", _mula);
+        PlayerPrefs.SetInt("mapinguari", _mapinguari);
+        PlayerPrefs.SetInt("iara", _iara);
+        PlayerPrefs.SetInt("boitata", _boitata);
+        PlayerPrefs.SetInt("homem", _homem);
 
         //Items
-        PlayerPrefs.GetInt("hpUp01", _hpUp01);
-        PlayerPrefs.GetInt("hpUp02", _hpUp02);
-        PlayerPrefs.GetInt("hpUp03", _hpUp03);
-        PlayerPrefs.GetInt("hpUp04", _hpUp04);
-        PlayerPrefs.GetInt("hpUp05", _hpUp05);
+        PlayerPrefs.SetInt("hpUp01", _hpUp01);
+        PlayerPrefs.SetInt("hpUp02", _hpUp02);
+        PlayerPrefs.SetInt("hpUp03", _hpUp03);
+        PlayerPrefs.SetInt("hpUp04", _hpUp04);
+        PlayerPrefs.SetInt("hpUp05", _hpUp05);
+
+        PlayerPrefs.Save();
     }
 
     public void LoadGame() {
@@ -141,5 +147,20 @@ public class GameController : MonoBehaviour
             _volumeGlobal = 100;
             PlayerPrefs.GetFloat("volumeGlobal", _volumeGlobal);
         }
+    }
+
+    public void LoadTest()
+    {
+        _posX = PlayerPrefs.GetFloat("posX");
+        _posY = PlayerPrefs.GetFloat("posY");
+        _posZ = PlayerPrefs.GetFloat("posZ");
+    }
+
+    public void SaveTest()
+    {
+        PlayerPrefs.SetFloat("posX", _posX);
+        PlayerPrefs.SetFloat("posY", _posY);
+        PlayerPrefs.SetFloat("posZ", _posZ);
+        PlayerPrefs.Save();
     }
 }
