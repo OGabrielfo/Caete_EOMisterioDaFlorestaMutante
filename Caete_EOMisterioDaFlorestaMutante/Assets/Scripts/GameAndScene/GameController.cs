@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
 
     #region Variáveis Gerais
     public int _gamePlayed;
-    public float _volumeGlobal;
+    public float _volumeMusic, _volumeSFX;
     #endregion
 
     private void Awake()
@@ -133,19 +133,31 @@ public class GameController : MonoBehaviour
 
     public void SaveConfigs()
     {
-        PlayerPrefs.GetFloat("volumeGlobal", _volumeGlobal);
+        PlayerPrefs.SetFloat("volumeMusic", _volumeMusic);
+        PlayerPrefs.SetFloat("volumeSFX", _volumeSFX);
+        PlayerPrefs.Save();
     }
 
     public void LoadConfigs()
     {
-        if (PlayerPrefs.HasKey("volumeGlobal"))
+        if (PlayerPrefs.HasKey("volumeMusic"))
         {
-            _volumeGlobal = PlayerPrefs.GetFloat("volumeGlobal");
+            _volumeMusic = PlayerPrefs.GetFloat("volumeMusic");
         }
         else
         {
-            _volumeGlobal = 100;
-            PlayerPrefs.GetFloat("volumeGlobal", _volumeGlobal);
+            _volumeMusic = 0;
+            PlayerPrefs.SetFloat("volumeMusic", _volumeMusic);
+        }
+
+        if (PlayerPrefs.HasKey("volumeSFX"))
+        {
+            _volumeSFX = PlayerPrefs.GetFloat("volumeSFX");
+        }
+        else
+        {
+            _volumeSFX = 0;
+            PlayerPrefs.SetFloat("volumeSFX", _volumeSFX);
         }
     }
 

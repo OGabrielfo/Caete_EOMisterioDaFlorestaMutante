@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18388079, g: 0.22882666, b: 0.30194533, a: 1}
+  m_IndirectSpecularColor: {r: 0.18388125, g: 0.22882713, b: 0.3019462, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1785,7 +1785,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 325796381}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 610757258}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Recomecar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &325796381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3691,7 +3703,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 539665693}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 610757258}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Sair
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &539665693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3907,6 +3931,7 @@ GameObject:
   - component: {fileID: 610757256}
   - component: {fileID: 610757255}
   - component: {fileID: 610757257}
+  - component: {fileID: 610757258}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -3944,7 +3969,8 @@ MonoBehaviour:
   _hpUp04: 0
   _hpUp05: 0
   _gamePlayed: 0
-  _volumeGlobal: 0
+  _volumeMusic: 0
+  _volumeSFX: 0
 --- !u!4 &610757256
 Transform:
   m_ObjectHideFlags: 0
@@ -3973,6 +3999,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 610757255}
+  saveAnimation: {fileID: 1764612959}
+--- !u!114 &610757258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610757254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941c31b44c44164498a86f7445c99a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 1213214747}
+  audioMixer: {fileID: 24100000, guid: 9ecee75f6843712469ec7e16e0b229d0, type: 2}
+  volumeMusic: {fileID: 939096226}
+  volumeSFX: {fileID: 1359060969}
 --- !u!1 &612428298
 GameObject:
   m_ObjectHideFlags: 0
@@ -5534,7 +5577,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 916933786}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 610757258}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Habilidades
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &916933786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5847,13 +5902,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 162334970}
   m_HandleRect: {fileID: 919917339}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -80
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -80
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 610757258}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: MusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &943381728
 GameObject:
   m_ObjectHideFlags: 0
@@ -9107,7 +9174,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1322265808}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 610757258}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: Continuar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1322265808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9689,13 +9768,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1325204664}
   m_HandleRect: {fileID: 2058928881}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -80
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -80
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 610757258}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: SFXVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1361258559
 GameObject:
   m_ObjectHideFlags: 0
@@ -11540,7 +11631,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   AttackCol: {fileID: 1310086475}
-  dashDistance: 10
+  dashDistance: 12
   dashTime: 0.3
   dashCooldown: 1
 --- !u!212 &1517993066

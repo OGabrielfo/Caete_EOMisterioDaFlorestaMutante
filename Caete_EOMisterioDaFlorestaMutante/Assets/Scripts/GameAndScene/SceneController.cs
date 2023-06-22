@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -8,8 +9,11 @@ public class SceneController : MonoBehaviour
 
     private GameObject _player;
 
+    [SerializeField] private GameObject saveAnimation;
+
     private void Awake()
     {
+        
         _player = GameObject.FindGameObjectWithTag("Player");
 
         if(PlayerPrefs.HasKey("posX"))
@@ -46,7 +50,26 @@ public class SceneController : MonoBehaviour
             gameController._posY = _player.transform.position.y;
             gameController._posZ = _player.transform.position.z;
             gameController.SaveTest();
-            Debug.Log("Jogo Salvo" + " " + gameController._posX + " " + gameController._posY + " " + gameController._posZ);
+            StartCoroutine("SaveAnimation");
         }
+    }
+
+    public void SaveGame()
+    {
+
+    }
+
+    public void LoadGame()
+    {
+
+    }
+
+    IEnumerator SaveAnimation()
+    {
+        saveAnimation.SetActive(true);
+        saveAnimation.GetComponent<Animator>().enabled = true;
+
+        yield return new WaitForSeconds(2);
+        saveAnimation.GetComponent<Animator>().SetTrigger("Out");
     }
 }
