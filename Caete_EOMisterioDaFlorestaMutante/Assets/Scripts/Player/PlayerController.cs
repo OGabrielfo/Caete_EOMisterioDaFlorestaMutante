@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     private bool _isSwinging = false;
     private bool _canDash = true;
     private bool _isDashing = false;
-    private float timer = 2f;
+    private float _timer = 2f;
 
     void Awake()
     {
