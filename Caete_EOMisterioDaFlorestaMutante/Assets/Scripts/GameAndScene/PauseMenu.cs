@@ -71,6 +71,7 @@ public class PauseMenu : MonoBehaviour
         _sceneController.SaveGame();
         SceneManager.LoadScene("MenuInicial");
         SceneManager.UnloadSceneAsync("GameStages");
+        Time.timeScale = 1f;
     }
 
     public void SFXVolume()

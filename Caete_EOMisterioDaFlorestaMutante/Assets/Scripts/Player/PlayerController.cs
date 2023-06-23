@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
         }
         
-        if (!_isAttacking && !_isSwinging && !_isDashing) {
+        if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming) {
             PlayerMove();
         }
         
@@ -233,7 +233,14 @@ public class PlayerController : MonoBehaviour
 
 
         _rigidbody.velocity = _movement * SwimSpeed;
-
+        if (horizontalInput < 0f && _faceRight == true)
+        {
+            Flip();
+        }
+        else if (horizontalInput > 0f && _faceRight == false)
+        {
+            Flip();
+        }
 
         bool acimaDaAgua = transform.position.y > 0;
 
@@ -379,19 +386,27 @@ public class PlayerController : MonoBehaviour
         _isDashing = false;
     }
 
+
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Water")
         {
-            _isSwiming = true;
-            _rigidbody.useGravity = false;
-            Swim();
+            if(Physics.CheckSphere(transform.position, 0.02f, water))
+            {
+                _isSwiming = true;
+                _rigidbody.useGravity = false;
+                Swim();
+            }
+            
+            
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Water")
         {
+            _jumpCounter = 0;
             _rigidbody.useGravity = true;
             _isSwiming = false;
         }

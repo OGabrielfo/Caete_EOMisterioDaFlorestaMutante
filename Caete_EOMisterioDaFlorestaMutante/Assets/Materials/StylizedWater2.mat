@@ -25,7 +25,7 @@ Material:
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: 49e58f8c00bb30a40b63b97c67c82b47,
     type: 3}
-  m_ModifiedSerializedProperties: 10
+  m_ModifiedSerializedProperties: 14
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 0
