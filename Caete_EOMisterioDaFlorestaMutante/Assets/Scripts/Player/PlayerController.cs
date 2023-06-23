@@ -6,24 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    // Movement
     public float speed;
     public float jumpForce;
     public int jumpLimit;
     //public float ClimbSpeed = 3f;
-    //public float SwimSpeed = 5f;
-    //public float empuxo = 5f;
-    //public float flutuacao = 10f;
+    
+    // Swim
+    public float SwimSpeed = 5f;
+    public float empuxo = 5f;
+    public float flutuacao = 10f;
+
+    // Life and Damage
     public float vida;
     public float vidaMax;
     public float dano;
+    public GameObject AttackCol;
+
+    // GroundCheck
     public Transform groundCheck;
     public LayerMask ground;
-    public GameObject AttackCol;
     //public LayerMask wall;
     //public Transform wallCheck;
-    //public LayerMask water;
+    public LayerMask water;
     //public Transform waterCheck;
     //public Vector3 vineVelocityWhenGrabbed;
+
+    // Dash
     public float dashDistance;
     public float dashTime;
     public float dashCooldown;
@@ -63,6 +72,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (_isSwiming)
+        {
+            gameObject.GetComponent<CapsuleCollider>().direction = 0;
+        }
+        else
+        {
+            gameObject.GetComponent<CapsuleCollider>().direction = 1;
+        }
         /*
         if (_isSwinging)
         {
@@ -156,6 +173,7 @@ public class PlayerController : MonoBehaviour
         _anim.SetBool("Idle", _movement == Vector3.zero);
         _anim.SetBool("isGrounded", IsGrounded());
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);
+        _anim.SetBool("IsSwiming",_isSwiming);
         /*
         _anim.SetBool("Transform",_isTatuTransform);
         _anim.SetBool("isClimbing", _isClimbing);
@@ -206,7 +224,7 @@ public class PlayerController : MonoBehaviour
 
         _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, verticalvelocity, _rigidbody.velocity.z);
     }
-
+    */
     void Swim()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -235,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
 
     }
-    */
+    
     void Jump()
     {
         _rigidbody.velocity = new Vector3(0f, 0f, 0f);
@@ -250,11 +268,15 @@ public class PlayerController : MonoBehaviour
 
         if (_faceRight)
         {
-            transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            //transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            AttackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
         }
         else
         {
-            transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            //transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            AttackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
         }
 
     }
@@ -329,7 +351,7 @@ public class PlayerController : MonoBehaviour
         _isDashing = true;
         _rigidbody.useGravity = false;
 
-        if (transform.rotation.eulerAngles.y == 0f)
+        if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             dashDirection = new Vector3(1f, 0f, 0f);
         }
@@ -356,9 +378,26 @@ public class PlayerController : MonoBehaviour
     {
         _isDashing = false;
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            _isSwiming = true;
+            _rigidbody.useGravity = false;
+            Swim();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            _rigidbody.useGravity = true;
+            _isSwiming = false;
+        }
+    }
+
     /*
-
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "RopeSegment" && !_isTatuTransform && _canDash)
