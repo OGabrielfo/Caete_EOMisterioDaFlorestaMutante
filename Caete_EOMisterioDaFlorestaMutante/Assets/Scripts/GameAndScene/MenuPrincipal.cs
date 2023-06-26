@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuPrincipal : MonoBehaviour
 {
-    public GameController gameController;
+    private GameController gameController;
+
+    public Button continuar;
 
     private void Awake()
     {
@@ -15,12 +18,20 @@ public class MenuPrincipal : MonoBehaviour
     void Start()
     {
         
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameController._gamePlayed == 1)
+        {
+            continuar.interactable = true;
+        }
+        else
+        {
+            continuar.interactable = false;
+        }
     }
 
     public void NewGame()

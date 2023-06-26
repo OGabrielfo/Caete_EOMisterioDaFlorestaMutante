@@ -34,8 +34,9 @@ public class GameController : MonoBehaviour
         else
         {
             _gamePlayed = 0;
+            PlayerPrefs.SetInt("gamePlayed", _gamePlayed);
         }
-
+        PlayerPrefs.Save();
         LoadConfigs();
     }
 
@@ -46,11 +47,11 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void NewGame() {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
         PlayerPrefs.SetInt("gamePlayed", 1);
 
@@ -59,6 +60,9 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("vidaAtual", 3);
         PlayerPrefs.SetInt("limitePulo", 1);
         PlayerPrefs.SetInt("pontos", 0);
+        PlayerPrefs.DeleteKey("posX");
+        PlayerPrefs.DeleteKey("posY");
+        PlayerPrefs.DeleteKey("posZ");
 
         //Bosses
         PlayerPrefs.SetInt("mula", 0);
@@ -159,20 +163,7 @@ public class GameController : MonoBehaviour
             _volumeSFX = 0;
             PlayerPrefs.SetFloat("volumeSFX", _volumeSFX);
         }
-    }
 
-    public void LoadTest()
-    {
-        _posX = PlayerPrefs.GetFloat("posX");
-        _posY = PlayerPrefs.GetFloat("posY");
-        _posZ = PlayerPrefs.GetFloat("posZ");
-    }
-
-    public void SaveTest()
-    {
-        PlayerPrefs.SetFloat("posX", _posX);
-        PlayerPrefs.SetFloat("posY", _posY);
-        PlayerPrefs.SetFloat("posZ", _posZ);
         PlayerPrefs.Save();
     }
 }

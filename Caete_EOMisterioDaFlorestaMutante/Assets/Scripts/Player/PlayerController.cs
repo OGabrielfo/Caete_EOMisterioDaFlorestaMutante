@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
     public float flutuacao = 10f;
 
     // Life and Damage
-    public float vida;
-    public float vidaMax;
+    public int vida;
+    public int vidaMax;
     public float dano;
     public GameObject AttackCol;
 
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     private bool _isSwinging = false;
     private bool _canDash = true;
     private bool _isDashing = false;
-    private float _timer = 2f;
+    //private float _timer = 2f;
 
     void Awake()
     {
@@ -342,7 +342,7 @@ public class PlayerController : MonoBehaviour
         _isAttacking = false;
     }
 
-    public void ReceberDano(float quantidade)
+    public void ReceberDano(int quantidade)
     {
         if (vida > 0)
         {
