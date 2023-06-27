@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public SceneController sceneController;
+    public int dashLimit;
+
     // Movement
     public float speed;
     public float jumpForce;
@@ -49,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _faceRight = true;
     private int _jumpCounter;
+    private int _dashCounter;
     private bool _isTatuTransform = false;
     private bool _isAttacking = false;
     private int _attackCounter = 0;
@@ -93,13 +97,20 @@ public class PlayerController : MonoBehaviour
             }
         }
         */
-        if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform))
+        if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform) && _dashCounter < dashLimit)
         {
+            StopCoroutine("DashCooldown");
+            StartCoroutine("DashCooldown");
             _canDash = false;
             _anim.SetTrigger("IsDashing");
             _rigidbody.velocity = Vector3.zero;
         }
+
+        // Dash Cooldown
         
+        Debug.Log(_dashCounter);
+
+
         if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming) {
             PlayerMove();
         }
@@ -362,15 +373,6 @@ public class PlayerController : MonoBehaviour
         Vector3 dashDirection;
         _isDashing = true;
 
-        if (IsGrounded())
-        {
-            _rigidbody.useGravity = true;
-        }
-        else
-        {
-            _rigidbody.useGravity = false;
-        }
-
         if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
             dashDirection = new Vector3(1f, 0f, 0f);
@@ -381,17 +383,36 @@ public class PlayerController : MonoBehaviour
         }
 
         //Vector3 dashDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
-        
+
         while (Time.time < startTime + dashTime)
         {
             _rigidbody.velocity = dashDirection * dashDistance;
             yield return null;
         }
+        _dashCounter++;
         _rigidbody.useGravity = true;
 
         _rigidbody.velocity = Vector3.zero;
-        yield return new WaitForSeconds(dashCooldown);
         _canDash = true;
+    }
+
+    IEnumerator DashCooldown()
+    {
+        yield return new WaitForSeconds(dashCooldown);
+        
+        if (_dashCounter > 0)
+        {
+            if (!_isDashing)
+            {
+                _dashCounter--;
+                yield return null;
+            }
+            
+            if (_dashCounter > 0)
+            {
+                StartCoroutine("DashCooldown");
+            }
+        }
     }
 
     public void EndDash()
