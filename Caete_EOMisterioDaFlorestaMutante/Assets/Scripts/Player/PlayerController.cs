@@ -290,7 +290,11 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
+        Color color = Color.black;
+        //return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
+        Debug.DrawLine(new Vector3(groundCheck.position.x - 0.3f, groundCheck.position.y, groundCheck.position.z), new Vector3(groundCheck.position.x + 0.3f, groundCheck.position.y, groundCheck.position.z), color);
+
+        return Physics.CheckBox(groundCheck.position, new Vector3(0.3f, 0.2f, 0.1f), new Quaternion(0f, 0f, 0f, 0f), ground);
 
     }
 
@@ -356,7 +360,15 @@ public class PlayerController : MonoBehaviour
         float startTime = Time.time;
         Vector3 dashDirection;
         _isDashing = true;
-        _rigidbody.useGravity = false;
+
+        if (IsGrounded())
+        {
+            _rigidbody.useGravity = true;
+        }
+        else
+        {
+            _rigidbody.useGravity = false;
+        }
 
         if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
         {
