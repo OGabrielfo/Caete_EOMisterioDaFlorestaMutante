@@ -106,10 +106,6 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
         }
 
-        // Dash Cooldown
-        
-        Debug.Log(_dashCounter);
-
 
         if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming) {
             PlayerMove();
