@@ -174,6 +174,7 @@ public class PlayerController : MonoBehaviour
         _anim.SetBool("isGrounded", IsGrounded());
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);
         _anim.SetBool("IsSwiming",_isSwiming);
+        _anim.SetBool("isOverWater", IsOverWater());
         /*
         _anim.SetBool("Transform",_isTatuTransform);
         _anim.SetBool("isClimbing", _isClimbing);
@@ -290,12 +291,12 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        Color color = Color.black;
-        //return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
-        Debug.DrawLine(new Vector3(groundCheck.position.x - 0.3f, groundCheck.position.y, groundCheck.position.z), new Vector3(groundCheck.position.x + 0.3f, groundCheck.position.y, groundCheck.position.z), color);
+        return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
+    }
 
-        return Physics.CheckBox(groundCheck.position, new Vector3(0.3f, 0.2f, 0.1f), new Quaternion(0f, 0f, 0f, 0f), ground);
-
+    bool IsOverWater()
+    {
+        return Physics.CheckSphere(new Vector3(groundCheck.position.x, groundCheck.position.y - 0.2f, groundCheck.position.z), 0.02f, water);
     }
 
     void OnCollisionEnter(Collision collision)
