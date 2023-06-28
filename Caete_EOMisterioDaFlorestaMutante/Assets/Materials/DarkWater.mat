@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StylizedWater2
+  m_Name: DarkWater
   m_Shader: {fileID: -6465566751694194690, guid: 49e58f8c00bb30a40b63b97c67c82b47,
     type: 3}
   m_Parent: {fileID: -876546973899608171, guid: 49e58f8c00bb30a40b63b97c67c82b47,

@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     // Movement
     public float speed;
     public float jumpForce;
-    public int jumpLimit;
+    
     //public float ClimbSpeed = 3f;
     
     // Swim
@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown;
     
 
-
     private Rigidbody _rigidbody;
     private Vector3 _movement;
     private Animator _anim;
@@ -49,19 +48,22 @@ public class PlayerController : MonoBehaviour
    // private GameObject _contactBlock;
    // public Image _vidaUI;
     
-
     private bool _faceRight = true;
     private int _jumpCounter;
-    private int _dashCounter;
     private bool _isTatuTransform = false;
     private bool _isAttacking = false;
     private int _attackCounter = 0;
     private bool _isClimbing = false;
     private bool _isSwiming = false;
     private bool _isSwinging = false;
-    private bool _canDash = true;
     private bool _isDashing = false;
     //private float _timer = 2f;
+
+    // Habilidades desbloqueadas
+    //[HideInInspector]
+    public int jumpLimit, dashCounter;
+    [HideInInspector]
+    public bool _canDash, _canSwim, _canTatuTransform, _canClimb;
 
     void Awake()
     {
@@ -76,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Alteração de Colisor se está nadando
         if (_isSwiming)
         {
             gameObject.GetComponent<CapsuleCollider>().direction = 0;
@@ -84,20 +87,9 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.GetComponent<CapsuleCollider>().direction = 1;
         }
-        /*
-        if (_isSwinging)
-        {
-            _movement = Vector3.zero;
-            transform.position = _currentSwingable.position;
-            if (Input.GetButtonDown("Jump"))
-            {
-                _isSwinging = false;
-                _rigidbody.velocity = new Vector3(_currentSwingable.GetComponent<Rigidbody>().velocity.x + 5, _currentSwingable.GetComponent<Rigidbody>().velocity.y + 5, _currentSwingable.GetComponent<Rigidbody>().velocity.z);
-                _rigidbody.useGravity = true;
-            }
-        }
-        */
-        if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform) && _dashCounter < dashLimit)
+       
+        // Dash
+        if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform) && dashCounter < dashLimit)
         {
             StopCoroutine("DashCooldown");
             StartCoroutine("DashCooldown");
@@ -106,23 +98,26 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = Vector3.zero;
         }
 
-
+        // Andar
         if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming) {
             PlayerMove();
         }
         
+        // Pular
         if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform)
         {
             Jump();
         }
 
-        
+        // Atacar
         if (Input.GetButtonDown("Attack") && !_isTatuTransform && !_isSwiming && !_isClimbing)
         {
             AttackOn();
         }
+
         /*
-        if (Input.GetButtonDown("Transform") && !_isClimbing && !_isAttacking && !_isSwiming)
+        // Transformação em Tatu
+        if (Input.GetButtonDown("Transform") && !_isClimbing && !_isAttacking && !_isSwiming && _canTatuTransform)
         {
             TatuTransform();
         }
@@ -136,7 +131,8 @@ public class PlayerController : MonoBehaviour
                 escavacaoBloco.EscavarBloco();
             }
         }
-            
+        
+        // Escalar paredes
         if (Physics.CheckSphere(wallCheck.position, 0.01f, wall))
         {
             _isClimbing = true;
@@ -156,7 +152,9 @@ public class PlayerController : MonoBehaviour
         } else {
             _isSwiming = false;
         }
-
+        */
+        /*
+        // Controle de Vida e Morte
         if (vida <= 0)
         {
             transform.localScale = Vector3.zero;
@@ -168,15 +166,12 @@ public class PlayerController : MonoBehaviour
             {
                 timer -= Time.deltaTime;
             }
-
-
         }
         */
     }
 
     void LateUpdate()
     {
-        
         _anim.SetBool("Idle", _movement == Vector3.zero);
         _anim.SetBool("isGrounded", IsGrounded());
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);
@@ -385,7 +380,7 @@ public class PlayerController : MonoBehaviour
             _rigidbody.velocity = dashDirection * dashDistance;
             yield return null;
         }
-        _dashCounter++;
+        dashCounter++;
         _rigidbody.useGravity = true;
 
         _rigidbody.velocity = Vector3.zero;
@@ -396,15 +391,15 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(dashCooldown);
         
-        if (_dashCounter > 0)
+        if (dashCounter > 0)
         {
             if (!_isDashing)
             {
-                _dashCounter--;
+                dashCounter--;
                 yield return null;
             }
             
-            if (_dashCounter > 0)
+            if (dashCounter > 0)
             {
                 StartCoroutine("DashCooldown");
             }
@@ -422,13 +417,16 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
-            if(Physics.CheckSphere(transform.position, 0.02f, water))
+            if(Physics.CheckSphere(transform.position, 0.02f, water) && _canSwim)
             {
                 _isSwiming = true;
                 _rigidbody.useGravity = false;
                 Swim();
             }
-            
+            else
+            {
+                vida = 0;
+            }
             
         }
     }

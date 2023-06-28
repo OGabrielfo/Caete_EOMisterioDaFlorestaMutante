@@ -5,21 +5,28 @@ using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
+    [HideInInspector]
     public int mula, mapinguari, iara, boitata, homem, pontos;
-    public int hpUp01, hpUp02, hpUp03, hpUp04, hpUp05;
+    [HideInInspector]
+    public int hpUp01, hpUp02, hpUp03, spUp01, spUp02;
 
 
     public GameController gameController;
 
     private GameObject _player;
+    private PlayerController _playerController;
 
-    [SerializeField] private GameObject saveAnimation;
-    [SerializeField] private GameObject transition;
+    [SerializeField] private GameObject saveAnimation, transition;
+    [SerializeField] private GameObject vidaMax, vidaAtual, dashLimit, dashCounter;
+    public Sprite[] vidaMaxImgs, vidaAtualImgs;
+
+    private float baseHPSize, baseSPSize;
 
     private void Awake()
     {
         gameController = GetComponent<GameController>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _playerController = _player.GetComponent<PlayerController>();
 
         if (gameController._gamePlayed == 1)
         {
@@ -32,8 +39,8 @@ public class SceneController : MonoBehaviour
             hpUp01 = gameController._hpUp01;
             hpUp02 = gameController._hpUp02;
             hpUp03 = gameController._hpUp03;
-            hpUp04 = gameController._hpUp04;
-            hpUp05 = gameController._hpUp05;
+            spUp01 = gameController._spUp01;
+            spUp02 = gameController._spUp02;
         }
         else
         {
@@ -46,6 +53,56 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Update Player Information
+            // Dash
+        if (mula != 0)
+        {
+            _playerController._canDash = true;
+        }
+        else
+        {
+            _playerController._canDash = false;
+        }
+
+            // Jump
+        if (mapinguari != 0)
+        {
+            _playerController.jumpLimit = 2;
+            _playerController._canClimb = true;
+        }
+        else
+        {
+            _playerController.jumpLimit = 1;
+            _playerController._canClimb = false;
+        }
+
+            // Swim
+        if (iara != 0)
+        {
+            _playerController._canSwim = true;
+        }
+        else
+        {
+            _playerController._canSwim = false;
+        }
+
+            // Tranformação Tatu
+        if (boitata != 0)
+        {
+            _playerController._canTatuTransform = true;
+        }
+        else
+        {
+            _playerController._canTatuTransform = false;
+        }
+
+            // Hp Máximo
+        _playerController.vidaMax = 3 + hpUp01 + hpUp02 + hpUp03;
+
+            // Sp Máximo
+        _playerController.dashLimit = iara + spUp01 + spUp02;
+
+        // FadeIn
         StartCoroutine("FadeIn");
     }
 
@@ -56,6 +113,33 @@ public class SceneController : MonoBehaviour
         {
             SaveGame();
         }
+    }
+
+    private void LateUpdate()
+    {
+        // Update HUD
+            // Limites HP
+        vidaMax.GetComponent<Image>().sprite = vidaMaxImgs[_playerController.vidaMax - 3];
+        vidaAtual.GetComponent<Image>().sprite = vidaAtualImgs[_playerController.vidaMax - 3];
+
+            // Controles de HP
+        RectTransform vidaMaxRect = vidaMax.transform as RectTransform;
+        RectTransform vidaAtualRect = vidaAtual.transform as RectTransform;
+        vidaMaxRect.sizeDelta = new Vector2((_playerController.vidaMax * 32.5f) + 31.5f, vidaMaxRect.sizeDelta.y);
+        if (_playerController.vida < _playerController.vidaMax)
+        {
+            vidaAtualRect.sizeDelta = new Vector2(_playerController.vida * 32.5f, vidaAtualRect.sizeDelta.y);
+        }
+        else
+        {
+            vidaAtualRect.sizeDelta = new Vector2((_playerController.vida * 32.5f) + 31.5f, vidaAtualRect.sizeDelta.y);
+        }
+
+            // Controles de SP
+        RectTransform dashLimitRect = dashLimit.transform as RectTransform;
+        RectTransform dashCounterRect = dashCounter.transform as RectTransform;
+        dashLimitRect.sizeDelta = new Vector2((_playerController.dashLimit) * 39.5f, dashLimitRect.sizeDelta.y);
+        dashCounterRect.sizeDelta = new Vector2((_playerController.dashLimit - _playerController.dashCounter) * 39.5f, dashLimitRect.sizeDelta.y);
     }
 
     public void SaveGame()
@@ -79,8 +163,8 @@ public class SceneController : MonoBehaviour
         gameController._hpUp01 = hpUp01;
         gameController._hpUp02 = hpUp02;
         gameController._hpUp03 = hpUp03;
-        gameController._hpUp04 = hpUp04;
-        gameController._hpUp05 = hpUp05;
+        gameController._spUp01 = spUp01;
+        gameController._spUp02 = spUp02;
 
         gameController._pontos = pontos;
 
@@ -112,8 +196,8 @@ public class SceneController : MonoBehaviour
         hpUp01 = gameController._hpUp01;
         hpUp02 = gameController._hpUp02;
         hpUp03 = gameController._hpUp03;
-        hpUp04 = gameController._hpUp04;
-        hpUp05 = gameController._hpUp05;
+        spUp01 = gameController._spUp01;
+        spUp02 = gameController._spUp02;
 
         pontos = gameController._pontos;
     }

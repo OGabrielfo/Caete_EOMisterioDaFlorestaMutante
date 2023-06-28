@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18388125, g: 0.22882713, b: 0.3019462, a: 1}
+  m_IndirectSpecularColor: {r: 0.18388079, g: 0.22882666, b: 0.30194533, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18025,8 +18025,8 @@ MonoBehaviour:
   _hpUp01: 0
   _hpUp02: 0
   _hpUp03: 0
-  _hpUp04: 0
-  _hpUp05: 0
+  _spUp01: 0
+  _spUp02: 0
   _gamePlayed: 0
   _volumeMusic: 0
   _volumeSFX: 0
@@ -18066,11 +18066,25 @@ MonoBehaviour:
   hpUp01: 0
   hpUp02: 0
   hpUp03: 0
-  hpUp04: 0
-  hpUp05: 0
+  spUp01: 0
+  spUp02: 0
   gameController: {fileID: 610757255}
   saveAnimation: {fileID: 1764612959}
   transition: {fileID: 791413659}
+  vidaMax: {fileID: 1191414435}
+  vidaAtual: {fileID: 1991032765}
+  dashLimit: {fileID: 1385525237}
+  dashCounter: {fileID: 1170093512}
+  vidaMaxImgs:
+  - {fileID: 21300000, guid: ded3431cce7313940a14e31edf7a76ef, type: 3}
+  - {fileID: 21300000, guid: 58d69c84ca553994597366e1ec2324e9, type: 3}
+  - {fileID: 21300000, guid: fde6be1fe93c72844a8742233c2b783a, type: 3}
+  - {fileID: 21300000, guid: 511f8994b9a311f40baab4d524b72b76, type: 3}
+  vidaAtualImgs:
+  - {fileID: 21300000, guid: 6782ac51db2adf749bbb1626ca77291a, type: 3}
+  - {fileID: 21300000, guid: d1019646bae8f9b4dad96bcb29424314, type: 3}
+  - {fileID: 21300000, guid: 3dea7a92db77f6f40b8f6e38da96c614, type: 3}
+  - {fileID: 21300000, guid: 44d89da31e5cb1249911e7db856b7843, type: 3}
 --- !u!114 &610757258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30070,16 +30084,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneController: {fileID: 610757257}
-  dashLimit: 2
+  dashLimit: 1
   speed: 5
   jumpForce: 60
-  jumpLimit: 2
   SwimSpeed: 3
   empuxo: 5
   flutuacao: 10
   vida: 3
   vidaMax: 3
-  dano: 0
+  dano: 1
   AttackCol: {fileID: 1310086475}
   groundCheck: {fileID: 1023970796}
   ground:
@@ -30090,7 +30103,12 @@ MonoBehaviour:
     m_Bits: 16
   dashDistance: 12
   dashTime: 0.3
-  dashCooldown: 1
+  dashCooldown: 2
+  jumpLimit: 1
+  _canDash: 1
+  _canSwim: 0
+  _canTatuTransform: 0
+  _canClimb: 0
 --- !u!212 &1517993066
 SpriteRenderer:
   m_ObjectHideFlags: 0

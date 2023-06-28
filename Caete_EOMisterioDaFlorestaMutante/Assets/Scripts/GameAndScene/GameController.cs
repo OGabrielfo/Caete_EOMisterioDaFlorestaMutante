@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
 
     //Items
     [HideInInspector]
-    public int _hpUp01, _hpUp02, _hpUp03, _hpUp04, _hpUp05;
+    public int _hpUp01, _hpUp02, _hpUp03, _spUp01, _spUp02;
     #endregion
 
     #region Variáveis Gerais
@@ -75,8 +75,8 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("hpUp01", 0);
         PlayerPrefs.SetInt("hpUp02", 0);
         PlayerPrefs.SetInt("hpUp03", 0);
-        PlayerPrefs.SetInt("hpUp04", 0);
-        PlayerPrefs.SetInt("hpUp05", 0);
+        PlayerPrefs.SetInt("spUp01", 0);
+        PlayerPrefs.SetInt("spUp02", 0);
 
         PlayerPrefs.Save();
 
@@ -103,8 +103,8 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetInt("hpUp01", _hpUp01);
         PlayerPrefs.SetInt("hpUp02", _hpUp02);
         PlayerPrefs.SetInt("hpUp03", _hpUp03);
-        PlayerPrefs.SetInt("hpUp04", _hpUp04);
-        PlayerPrefs.SetInt("hpUp05", _hpUp05);
+        PlayerPrefs.SetInt("spUp01", _spUp01);
+        PlayerPrefs.SetInt("spUp02", _spUp02);
 
         PlayerPrefs.Save();
     }
@@ -130,8 +130,8 @@ public class GameController : MonoBehaviour
         _hpUp01 = PlayerPrefs.GetInt("hpUp01");
         _hpUp02 = PlayerPrefs.GetInt("hpUp02");
         _hpUp03 = PlayerPrefs.GetInt("hpUp03");
-        _hpUp04 = PlayerPrefs.GetInt("hpUp04");
-        _hpUp05 = PlayerPrefs.GetInt("hpUp05");
+        _spUp01 = PlayerPrefs.GetInt("spUp01");
+        _spUp02 = PlayerPrefs.GetInt("spUp02");
 
     }
 
