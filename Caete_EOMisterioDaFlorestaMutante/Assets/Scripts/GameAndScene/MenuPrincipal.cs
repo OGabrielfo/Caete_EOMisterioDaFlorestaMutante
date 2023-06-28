@@ -17,15 +17,19 @@ public class MenuPrincipal : MonoBehaviour
     public Image chargingStone;
     public Sprite[] chargingAnimation;
 
+    public GameObject transition;
+
     private void Awake()
     {
+        loadingScreen.SetActive(false);
         gameController = GetComponent<GameController>();
     }
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+
+        // FadeIn
+        StartCoroutine("FadeIn");
     }
 
     // Update is called once per frame
@@ -95,6 +99,7 @@ public class MenuPrincipal : MonoBehaviour
             // Sai do loop quando o progresso é 100% e todos os frames foram exibidos
             if (asyncLoad.progress >= 0.9f && frameIndex >= chargingAnimation.Length - 1)
             {
+                asyncLoad.allowSceneActivation = true;
                 break;
             }
 
@@ -102,7 +107,29 @@ public class MenuPrincipal : MonoBehaviour
         }
 
         // Ao completar carregamento libera transição de cena
-        asyncLoad.allowSceneActivation = true;
-        loadingScreen.SetActive(false);
+        //asyncLoad.allowSceneActivation = true;
+        //loadingScreen.SetActive(false);
+    }
+
+    IEnumerator FadeIn()
+    {
+        float timer = 0f;
+        float fadeDuration = 0.5f;
+        float currentAlpha = 1f;
+        Image transitionImage = transition.GetComponent<Image>();
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(timer / fadeDuration);
+            float alpha = 1f - normalizedTime;
+
+            currentAlpha = Mathf.Lerp(1f, alpha, normalizedTime);
+            transitionImage.color = new Color(0f, 0f, 0f, currentAlpha);
+            yield return null;
+        }
+        currentAlpha = 0f;
+        transitionImage.color = new Color(0f, 0f, 0f, currentAlpha);
+        transition.SetActive(false);
     }
 }
