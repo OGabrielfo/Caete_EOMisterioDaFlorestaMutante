@@ -62,8 +62,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Recomecar()
     {
+        if (_pauseMenu.active == true)
+        {
+            _pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+        }
         _sceneController.LoadGame();
-        SceneManager.LoadSceneAsync("GameStages");
     }
 
     public void Sair()
@@ -72,6 +76,12 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MenuInicial");
         SceneManager.UnloadSceneAsync("GameStages");
         Time.timeScale = 1f;
+    }
+
+    public void SairSemSalvar()
+    {
+        SceneManager.LoadScene("MenuInicial");
+        SceneManager.UnloadSceneAsync("GameStages");
     }
 
     public void SFXVolume()
@@ -87,4 +97,5 @@ public class PauseMenu : MonoBehaviour
         _gameController._volumeMusic = volumeMusic.value;
         _gameController.SaveConfigs();
     }
+
 }

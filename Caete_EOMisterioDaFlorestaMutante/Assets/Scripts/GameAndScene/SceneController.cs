@@ -234,6 +234,7 @@ public class SceneController : MonoBehaviour
 
         while (timer < fadeDuration)
         {
+            transition.SetActive(true);
             timer += Time.deltaTime;
             float normalizedTime = Mathf.Clamp01(timer / fadeDuration);
             float alpha = 1f - normalizedTime;

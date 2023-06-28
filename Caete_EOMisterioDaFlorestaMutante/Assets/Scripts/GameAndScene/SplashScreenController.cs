@@ -43,6 +43,7 @@ public class SplashScreenController : MonoBehaviour
 
     IEnumerator FadeIn()
     {
+        transition.SetActive(true);
         float timer = 0f;
         float fadeDuration = 0.5f;
         float currentAlpha = 1f;
