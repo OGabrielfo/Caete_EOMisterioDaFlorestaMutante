@@ -17,8 +17,8 @@ public class SceneController : MonoBehaviour
     private PlayerController _playerController;
 
     [SerializeField] private GameObject saveAnimation, transition;
-    [SerializeField] private GameObject vidaMax, vidaAtual, dashLimit, dashCounter;
-    public Sprite[] vidaMaxImgs, vidaAtualImgs;
+    [SerializeField] private GameObject vidaMax, vidaAtual, dashLimit, dashCounter, moldura;
+    public Sprite[] vidaMaxImgs, vidaAtualImgs, moldurasCaete;
 
     private float baseHPSize, baseSPSize;
 
@@ -125,14 +125,14 @@ public class SceneController : MonoBehaviour
             // Controles de HP
         RectTransform vidaMaxRect = vidaMax.transform as RectTransform;
         RectTransform vidaAtualRect = vidaAtual.transform as RectTransform;
-        vidaMaxRect.sizeDelta = new Vector2((_playerController.vidaMax * 32.5f) + 31.5f, vidaMaxRect.sizeDelta.y);
+        vidaMaxRect.sizeDelta = new Vector2((_playerController.vidaMax * 32f) + 32f, vidaMaxRect.sizeDelta.y);
         if (_playerController.vida < _playerController.vidaMax)
         {
-            vidaAtualRect.sizeDelta = new Vector2(_playerController.vida * 32.5f, vidaAtualRect.sizeDelta.y);
+            vidaAtualRect.sizeDelta = new Vector2(_playerController.vida * 32f, vidaAtualRect.sizeDelta.y);
         }
         else
         {
-            vidaAtualRect.sizeDelta = new Vector2((_playerController.vida * 32.5f) + 31.5f, vidaAtualRect.sizeDelta.y);
+            vidaAtualRect.sizeDelta = new Vector2((_playerController.vida * 32f) + 32f, vidaAtualRect.sizeDelta.y);
         }
 
             // Controles de SP
@@ -140,6 +140,20 @@ public class SceneController : MonoBehaviour
         RectTransform dashCounterRect = dashCounter.transform as RectTransform;
         dashLimitRect.sizeDelta = new Vector2((_playerController.dashLimit) * 39.5f, dashLimitRect.sizeDelta.y);
         dashCounterRect.sizeDelta = new Vector2((_playerController.dashLimit - _playerController.dashCounter) * 39.5f, dashLimitRect.sizeDelta.y);
+
+            // Moldura
+        if (_playerController.vida >= _playerController.vidaMax * 0.8)
+        {
+            moldura.GetComponent<Image>().sprite = moldurasCaete[0];
+        }
+        else if (_playerController.vida >= _playerController.vidaMax * 0.5)
+        {
+            moldura.GetComponent<Image>().sprite = moldurasCaete[1];
+        }
+        else if (_playerController.vida <= _playerController.vidaMax * 0.35)
+        {
+            moldura.GetComponent<Image>().sprite = moldurasCaete[2];
+        }
     }
 
     public void SaveGame()
