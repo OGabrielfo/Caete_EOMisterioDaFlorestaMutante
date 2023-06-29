@@ -10,6 +10,7 @@ public class SceneController : MonoBehaviour
     [HideInInspector]
     public int hpUp01, hpUp02, hpUp03, spUp01, spUp02;
 
+    public GameObject deathScreen;
 
     public GameController gameController;
 
@@ -49,6 +50,7 @@ public class SceneController : MonoBehaviour
 
         gameController.LoadConfigs();
         LoadGame();
+        SaveGame();
     }
     // Start is called before the first frame update
     void Start()
@@ -109,9 +111,10 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Backspace))
+        if (deathScreen.active == true)
         {
-            SaveGame();
+            _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _player.GetComponent<Rigidbody>().useGravity = false;
         }
     }
 

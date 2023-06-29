@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
+        
     }
 
     void Update()
@@ -87,33 +87,37 @@ public class PlayerController : MonoBehaviour
         {
             gameObject.GetComponent<CapsuleCollider>().direction = 1;
         }
-       
-        // Dash
-        if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform) && dashCounter < dashLimit)
+       if (vida > 0 && Time.timeScale > 0f)
         {
-            StopCoroutine("DashCooldown");
-            StartCoroutine("DashCooldown");
-            _canDash = false;
-            _anim.SetTrigger("IsDashing");
-            _rigidbody.velocity = Vector3.zero;
-        }
+            // Dash
+            if (Input.GetButtonDown("Dash") && _canDash && (!_isSwinging || !_isAttacking || !_isSwiming || !_isClimbing || !_isTatuTransform) && dashCounter < dashLimit)
+            {
+                StopCoroutine("DashCooldown");
+                StartCoroutine("DashCooldown");
+                _canDash = false;
+                _anim.SetTrigger("IsDashing");
+                _rigidbody.velocity = Vector3.zero;
+            }
 
-        // Andar
-        if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming) {
-            PlayerMove();
+            // Andar
+            if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming)
+            {
+                PlayerMove();
+            }
+
+            // Pular
+            if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform)
+            {
+                Jump();
+            }
+
+            // Atacar
+            if (Input.GetButtonDown("Attack") && !_isTatuTransform && !_isSwiming && !_isClimbing)
+            {
+                AttackOn();
+            }
         }
         
-        // Pular
-        if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform)
-        {
-            Jump();
-        }
-
-        // Atacar
-        if (Input.GetButtonDown("Attack") && !_isTatuTransform && !_isSwiming && !_isClimbing)
-        {
-            AttackOn();
-        }
 
         /*
         // Transformação em Tatu
@@ -172,6 +176,7 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
+        _anim.SetInteger("Life", vida);
         _anim.SetBool("Idle", _movement == Vector3.zero);
         _anim.SetBool("isGrounded", IsGrounded());
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);

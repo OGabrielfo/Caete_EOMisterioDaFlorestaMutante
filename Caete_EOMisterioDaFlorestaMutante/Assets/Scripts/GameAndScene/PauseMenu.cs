@@ -62,12 +62,20 @@ public class PauseMenu : MonoBehaviour
 
     public void Recomecar()
     {
+        /*_sceneController.LoadGame();
+
         if (_pauseMenu.active == true)
         {
             _pauseMenu.SetActive(false);
             Time.timeScale = 1f;
         }
-        _sceneController.LoadGame();
+        if (_sceneController.deathScreen.active == true)
+        {
+            _sceneController.deathScreen.SetActive(false);
+        }*/
+
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync("GameStages");
     }
 
     public void Sair()
@@ -80,6 +88,10 @@ public class PauseMenu : MonoBehaviour
 
     public void SairSemSalvar()
     {
+        if (_sceneController.deathScreen.active == true)
+        {
+            _sceneController.deathScreen.SetActive(false);
+        }
         SceneManager.LoadScene("MenuInicial");
         SceneManager.UnloadSceneAsync("GameStages");
     }
