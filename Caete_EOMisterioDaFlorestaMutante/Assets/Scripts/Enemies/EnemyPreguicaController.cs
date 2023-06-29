@@ -15,4 +15,9 @@ public class EnemyPreguicaController : MonoBehaviour
     {
         
     }
+
+    private void LateUpdate()
+    {
+        
+    }
 }
