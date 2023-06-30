@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2253996894683559104}
   - component: {fileID: 1489116054621736235}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 368421565762597804}
   - component: {fileID: 5159186528882224539}
+  - component: {fileID: 1388687393124490395}
   m_Layer: 0
   m_Name: PlayerIdentifier
   m_TagString: Untagged
@@ -159,6 +160,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.205451, y: 3.1590042, z: 1}
   m_Center: {x: -0.0043873787, y: 0.65823364, z: 0}
+--- !u!114 &1388687393124490395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609572653893346824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ba6b78bcf6b264eae05eef71aa805d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInArea: 0
 --- !u!1 &5893322258006734973
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,8 +275,9 @@ GameObject:
   - component: {fileID: 1467734122190698577}
   - component: {fileID: 1687374938816550893}
   - component: {fileID: 8586245443654682137}
+  - component: {fileID: 7856742821061367323}
   - component: {fileID: 6719081365326144363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Preguica
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +377,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!136 &1467734122190698577
 CapsuleCollider:
@@ -412,10 +427,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCol: {fileID: 1707442128364000290}
-  playerIdentifier: {fileID: 5609572653893346824}
   patrolLimit01: {fileID: 5893322258006734973}
   patrolLimit02: {fileID: 1770717517061890234}
   vida: 3
+  speed: 0
+  playerIdentifier: {fileID: 1388687393124490395}
+  _rb: {fileID: 0}
+--- !u!114 &7856742821061367323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970033565193204862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea0e53a87afe96429f7442e6de09e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints:
+  - {fileID: 6967568841260106998}
+  - {fileID: 547774413696834992}
+  speed: 2
+  waitTime: 2
 --- !u!95 &6719081365326144363
 Animator:
   serializedVersion: 5
