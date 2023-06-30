@@ -7,11 +7,12 @@ public class EnemyController : MonoBehaviour
     public GameObject attackCol, patrolLimit01, patrolLimit02;
     public int vida;
     public float speed;
+    public float attackDistance;
 
     public PlayerIdentifier playerIdentifier;
 
     private Animator _anim;
-    private bool _isAttacking = false;
+    [HideInInspector] public bool _isAttacking = false;
     [HideInInspector] public Rigidbody _rb;
     private GameObject _player;
 
@@ -27,10 +28,13 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         Flip();
-        
-        if (!_isAttacking && Vector3.Distance(transform.position, _player.transform.position) <= 3f)
+        if (!_isAttacking && Vector3.Distance(transform.position, _player.transform.position) <= attackDistance)
         {
-            _anim.SetTrigger("Attack");
+            _anim.SetBool("Attack", true);
+        }
+        else
+        {
+            _anim.SetBool("Attack", false);
         }
     }
 
@@ -50,7 +54,6 @@ public class EnemyController : MonoBehaviour
 
     private void AttackOff()
     {
-        _isAttacking = false;
         attackCol.SetActive(false);
     }
 
@@ -61,18 +64,34 @@ public class EnemyController : MonoBehaviour
 
     void Flip()
     {
-        float direction = _player.transform.position.x - transform.position.x;
-        if (_rb.velocity.x > 0 ||(direction > 0f && _isAttacking))
+        if (Vector3.Distance(transform.position, _player.transform.position) > attackDistance)
         {
-            //transform.rotation = Quaternion.Euler(0, 180, 0);
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            attackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            if (_rb.velocity.x > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                attackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                attackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
         }
         else
         {
-            //transform.rotation = Quaternion.Euler(0, 0, 0);
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            attackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            float direction = _player.transform.position.x - transform.position.x;
+            if (direction > 0f)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                attackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            }
+            else
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                attackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            }
+            Debug.Log(direction);
         }
+        
     }
 }

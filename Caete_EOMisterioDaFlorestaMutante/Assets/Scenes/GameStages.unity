@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18388079, g: 0.22882666, b: 0.30194533, a: 1}
+  m_IndirectSpecularColor: {r: 0.18388125, g: 0.22882713, b: 0.3019462, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4269,7 +4269,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32710
+  m_Name: pb_Mesh33164
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -38451,6 +38451,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.63
       objectReference: {fileID: 0}
+    - target: {fileID: 1489116054621736235, guid: 900d8fcd134cf93489e25aacb6296f96,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.130661
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489116054621736235, guid: 900d8fcd134cf93489e25aacb6296f96,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.7174368
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489116054621736235, guid: 900d8fcd134cf93489e25aacb6296f96,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1687374938816550893, guid: 900d8fcd134cf93489e25aacb6296f96,
         type: 3}
       propertyPath: vida
@@ -38476,6 +38491,11 @@ PrefabInstance:
       propertyPath: playerIdentifier
       value: 
       objectReference: {fileID: 1262874599}
+    - target: {fileID: 1707442128364000290, guid: 900d8fcd134cf93489e25aacb6296f96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4355985226180787353, guid: 900d8fcd134cf93489e25aacb6296f96,
         type: 3}
       propertyPath: m_RootOrder
@@ -38554,7 +38574,12 @@ PrefabInstance:
     - target: {fileID: 8586245443654682137, guid: 900d8fcd134cf93489e25aacb6296f96,
         type: 3}
       propertyPath: speed
-      value: 1
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586245443654682137, guid: 900d8fcd134cf93489e25aacb6296f96,
+        type: 3}
+      propertyPath: attackDistance
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
