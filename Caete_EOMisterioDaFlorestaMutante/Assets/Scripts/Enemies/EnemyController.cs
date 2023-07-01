@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public bool _isAttacking = false;
     [HideInInspector] public Rigidbody _rb;
     private GameObject _player;
+    private bool _invulneravel = false;
 
     // Start is called before the first frame update
     void Start()
@@ -90,8 +91,27 @@ public class EnemyController : MonoBehaviour
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 attackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
             }
-            Debug.Log(direction);
         }
-        
+    }
+
+    public void ReceberDano(int dano)
+    {
+        if (vida > 0 && !_invulneravel)
+        {
+            vida -= dano;
+            _anim.SetTrigger("TakeDamage");
+        }
+    }
+
+    public void Invulneravel()
+    {
+        if (_invulneravel)
+        {
+            _invulneravel = false;
+        }
+        else
+        {
+            _invulneravel = true;
+        }
     }
 }
