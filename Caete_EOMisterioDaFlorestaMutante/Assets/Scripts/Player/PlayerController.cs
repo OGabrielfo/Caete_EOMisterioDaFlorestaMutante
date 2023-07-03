@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
     // GroundCheck
     public Transform groundCheck;
     public LayerMask ground;
-    //public LayerMask wall;
-    //public Transform wallCheck;
+    public LayerMask wall;
+    public Transform wallCheck;
     public LayerMask water;
     //public Transform waterCheck;
     //public Vector3 vineVelocityWhenGrabbed;
@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     private bool _isSwiming = false;
     private bool _isSwinging = false;
     private bool _isDashing = false;
+    private bool _invulneravel = false;
     //private float _timer = 2f;
 
     // Habilidades desbloqueadas
@@ -182,6 +183,7 @@ public class PlayerController : MonoBehaviour
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);
         _anim.SetBool("IsSwiming",_isSwiming);
         _anim.SetBool("isOverWater", IsOverWater());
+        _anim.SetBool("WallJumping", IsInWall());
         /*
         _anim.SetBool("Transform",_isTatuTransform);
         _anim.SetBool("isClimbing", _isClimbing);
@@ -280,18 +282,25 @@ public class PlayerController : MonoBehaviour
     void Flip()
     {
         _faceRight = !_faceRight;
+        float wallCheckPositionX = groundCheck.transform.position.x;
+        if (wallCheckPositionX < 0)
+        {
+            wallCheckPositionX *= -1;
+        }
 
         if (_faceRight)
         {
             //transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
             AttackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            wallCheck.transform.position = new Vector3(wallCheckPositionX, wallCheck.transform.position.y, wallCheck.transform.position.z);
         }
         else
         {
             //transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             AttackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            wallCheck.transform.position = new Vector3(wallCheckPositionX * -1, wallCheck.transform.position.y, wallCheck.transform.position.z);
         }
 
     }
@@ -306,6 +315,11 @@ public class PlayerController : MonoBehaviour
         return Physics.CheckSphere(new Vector3(groundCheck.position.x, groundCheck.position.y - 0.2f, groundCheck.position.z), 0.02f, water);
     }
 
+    bool IsInWall()
+    {
+        return Physics.CheckSphere(wallCheck.position, 0.02f, wall);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Reinicia os pulos quando o jogador toca no chão
@@ -315,7 +329,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
     void AttackOn()
     {
         if (IsGrounded())
@@ -354,15 +367,15 @@ public class PlayerController : MonoBehaviour
         _isAttacking = false;
     }
 
-    public void ReceberDano(int quantidade)
+    public void ReceberDano()
     {
-        if (vida > 0)
+        if (vida > 0 && !_invulneravel)
         {
-            vida -= quantidade;
+            vida--;
+            _anim.SetTrigger("TakeDamage");
         }
     }
     
-
     IEnumerator Dash()
     {
         float startTime = Time.time;
@@ -416,7 +429,13 @@ public class PlayerController : MonoBehaviour
         _isDashing = false;
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.SendMessage("ReceberDano");
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -442,6 +461,18 @@ public class PlayerController : MonoBehaviour
             _jumpCounter = 0;
             _rigidbody.useGravity = true;
             _isSwiming = false;
+        }
+    }
+
+    public void Invulneravel()
+    {
+        if (_invulneravel)
+        {
+            _invulneravel = false;
+        }
+        else
+        {
+            _invulneravel = true;
         }
     }
 

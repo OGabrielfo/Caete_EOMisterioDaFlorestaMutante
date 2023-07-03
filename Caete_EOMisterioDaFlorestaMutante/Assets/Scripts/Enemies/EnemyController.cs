@@ -60,7 +60,10 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.SendMessage("ReceberDano");
+        }
     }
 
     void Flip()
@@ -94,11 +97,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void ReceberDano(int dano)
+    public void ReceberDano()
     {
         if (vida > 0 && !_invulneravel)
         {
-            vida -= dano;
+            vida--;
             _anim.SetTrigger("TakeDamage");
         }
     }

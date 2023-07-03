@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 4355985226180787353}
   m_Layer: 0
   m_Name: Enemy_Preguica
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 6719081365326144363}
   m_Layer: 6
   m_Name: Preguica
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -430,8 +430,10 @@ MonoBehaviour:
   patrolLimit01: {fileID: 5893322258006734973}
   patrolLimit02: {fileID: 1770717517061890234}
   vida: 3
-  speed: 0
+  speed: 1.5
+  attackDistance: 1.4
   playerIdentifier: {fileID: 1388687393124490395}
+  _isAttacking: 0
   _rb: {fileID: 0}
 --- !u!114 &7856742821061367323
 MonoBehaviour:
