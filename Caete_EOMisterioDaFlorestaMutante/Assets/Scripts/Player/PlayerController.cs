@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class PlayerController : MonoBehaviour
     // Movement
     public float speed;
     public float jumpForce;
+
+    // WallJump
+    public float wallHorizontalForce;
+    public float wallJumpForce;
     
     //public float ClimbSpeed = 3f;
     
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour
     private bool _isSwiming = false;
     private bool _isSwinging = false;
     private bool _isDashing = false;
+    private bool _isWallJumping = false;
     private bool _invulneravel = false;
     //private float _timer = 2f;
 
@@ -101,7 +107,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Andar
-            if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming)
+            if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming && !_isWallJumping)
             {
                 PlayerMove();
             }
@@ -116,6 +122,20 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Attack") && !_isTatuTransform && !_isSwiming && !_isClimbing)
             {
                 AttackOn();
+            }
+
+            // Wall Jump
+            if (IsInWall() && !IsGrounded() && _movement != Vector3.zero)
+            {
+                _rigidbody.drag = 8f;
+                if (Input.GetButtonDown("Jump"))
+                {
+                    StartCoroutine("WallJump");
+                }
+            }
+            else
+            {
+                _rigidbody.drag = 0f;
             }
         }
         
@@ -194,7 +214,6 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove()
     {
-
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _movement = new Vector3(horizontalInput, 0f, 0f);
         if (horizontalInput < 0f && _faceRight == true)
@@ -209,7 +228,7 @@ public class PlayerController : MonoBehaviour
         float horizontalVelocity = _movement.normalized.x * speed;
         _rigidbody.velocity = new Vector3(horizontalVelocity, _rigidbody.velocity.y, _rigidbody.velocity.z);
     }
-    /*
+    /* Tranf Tatu
     void TatuTransform()
     {
         if (_isTatuTransform == false)
@@ -235,6 +254,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, verticalvelocity, _rigidbody.velocity.z);
     }
     */
+
     void Swim()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -279,30 +299,44 @@ public class PlayerController : MonoBehaviour
         _jumpCounter++;
     }
 
+    IEnumerator WallJump()
+    {
+        _isWallJumping = true;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        _rigidbody.velocity = new Vector3(0f, 0f, 0f);
+        _rigidbody.AddForce(new Vector3((horizontalInput * -1) * wallHorizontalForce, 1f * (wallJumpForce), 0f), ForceMode.Impulse);
+        Flip();
+        _anim.SetTrigger("WallJump");
+        yield return new WaitForSeconds(0.3f);
+        _isWallJumping = false;
+    }
+
+    /*void WallJump()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        _rigidbody.velocity = new Vector3(0f, 0f, 0f);
+        _rigidbody.AddForce(new Vector3((horizontalInput * -1) * jumpForce, 1f * jumpForce, 0f), ForceMode.Impulse);
+        _anim.SetTrigger("WallJump");
+    }*/
+
     void Flip()
     {
         _faceRight = !_faceRight;
-        float wallCheckPositionX = groundCheck.transform.position.x;
-        if (wallCheckPositionX < 0)
-        {
-            wallCheckPositionX *= -1;
-        }
 
         if (_faceRight)
         {
             //transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
             AttackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
-            wallCheck.transform.position = new Vector3(wallCheckPositionX, wallCheck.transform.position.y, wallCheck.transform.position.z);
+            wallCheck.transform.position = new Vector3(transform.position.x + 0.55f, wallCheck.transform.position.y, wallCheck.transform.position.z);
         }
         else
         {
             //transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             AttackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
-            wallCheck.transform.position = new Vector3(wallCheckPositionX * -1, wallCheck.transform.position.y, wallCheck.transform.position.z);
+            wallCheck.transform.position = new Vector3(transform.position.x - 0.55f, wallCheck.transform.position.y, wallCheck.transform.position.z);
         }
-
     }
 
     bool IsGrounded()
@@ -317,7 +351,15 @@ public class PlayerController : MonoBehaviour
 
     bool IsInWall()
     {
-        return Physics.CheckSphere(wallCheck.position, 0.02f, wall);
+        if (IsGrounded() || _movement == Vector3.zero)
+        {
+            return false;
+        }
+        else
+        {
+            return Physics.CheckSphere(wallCheck.position, 0.02f, wall);
+        }
+        
     }
 
     void OnCollisionEnter(Collision collision)
