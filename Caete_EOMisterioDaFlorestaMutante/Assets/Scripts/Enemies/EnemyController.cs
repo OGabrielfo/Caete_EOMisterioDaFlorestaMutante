@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class EnemyController : MonoBehaviour
 {
     public GameObject attackCol, patrolLimit01, patrolLimit02;
-    public int vida;
+    public int vidaTotal;
     public float speed;
     public float attackDistance;
 
@@ -16,6 +17,8 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public Rigidbody _rb;
     private GameObject _player;
     private bool _invulneravel = false;
+    private bool _dead = false;
+    private int vida;
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +26,14 @@ public class EnemyController : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
+        vida = vidaTotal;
     }
 
     // Update is called once per frame
     void Update()
     {
         Flip();
-        if (!_isAttacking && Vector3.Distance(transform.position, _player.transform.position) <= attackDistance)
+        if (!_isAttacking && Vector3.Distance(transform.position, _player.transform.position) <= attackDistance && !_dead)
         {
             _anim.SetBool("Attack", true);
         }
@@ -44,7 +48,7 @@ public class EnemyController : MonoBehaviour
         _anim.SetBool("PlayerChase", playerIdentifier.playerInArea);
         _anim.SetInteger("Life", vida);
         _anim.SetFloat("Speed", speed);
-
+        _anim.SetBool("IsDead", _dead);
     }
 
     private void Attack()
@@ -116,5 +120,24 @@ public class EnemyController : MonoBehaviour
         {
             _invulneravel = true;
         }
+    }
+
+    public void EnemyDead()
+    {
+        _rb.useGravity = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        StartCoroutine("Respawn");
+    }
+
+    IEnumerator Respawn()
+    {
+        _dead = true;
+        yield return new WaitForSeconds(5f);
+        vida = vidaTotal;
+        _dead = false;
+        _rb.useGravity = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
     }
 }

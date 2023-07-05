@@ -155,7 +155,7 @@ MonoBehaviour:
   attackCol: {fileID: 5826791852538696742}
   patrolLimit01: {fileID: 4793941470685209353}
   patrolLimit02: {fileID: 7637731756132955469}
-  vida: 3
+  vidaTotal: 3
   speed: 4
   attackDistance: 1.5
   playerIdentifier: {fileID: 5190646992297287821}
@@ -458,5 +458,5 @@ Transform:
   - {fileID: 2468658621545388102}
   - {fileID: 5099433470735635984}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
