@@ -55,8 +55,68 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UpdatePlayerInformation();
+
+        // FadeIn
+        StartCoroutine("FadeIn");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Habilidades
+        mula = gameController._mula;
+        mapinguari = gameController._mapinguari;
+        iara = gameController._iara;
+        boitata = gameController._boitata;
+        hpUp01 = gameController._hpUp01;
+        hpUp02 = gameController._hpUp02;
+        hpUp03 = gameController._hpUp03;
+        spUp01 = gameController._spUp01;
+        spUp02 = gameController._spUp02;
+        UpdatePlayerInformation();
+
+        // Player Death
+        if (deathScreen.active == true)
+        {
+            _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _player.GetComponent<Rigidbody>().useGravity = false;
+        }
+
+        #region TESTE DE HABILIDADES
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            gameController._mula = 0;
+            gameController._mapinguari = 0;
+            gameController._iara = 0;
+            gameController._boitata = 0;
+            gameController._homem = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            gameController._mula = 1;
+            gameController._mapinguari = 0;
+            gameController._iara = 0;
+            gameController._boitata = 0;
+            gameController._homem = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            gameController._mula = 1;
+            gameController._mapinguari = 1;
+            gameController._iara = 1;
+            gameController._boitata = 1;
+            gameController._homem = 1;
+        }
+        #endregion
+    }
+
+    private void UpdatePlayerInformation()
+    {
         // Update Player Information
-            // Dash
+        // Dash
         if (mula != 0)
         {
             _playerController._canDash = true;
@@ -66,7 +126,7 @@ public class SceneController : MonoBehaviour
             _playerController._canDash = false;
         }
 
-            // Jump
+        // Jump
         if (mapinguari != 0)
         {
             _playerController.jumpLimit = 2;
@@ -78,7 +138,7 @@ public class SceneController : MonoBehaviour
             _playerController._canClimb = false;
         }
 
-            // Swim
+        // Swim
         if (iara != 0)
         {
             _playerController._canSwim = true;
@@ -88,7 +148,7 @@ public class SceneController : MonoBehaviour
             _playerController._canSwim = false;
         }
 
-            // Tranformação Tatu
+        // Tranformação Tatu
         if (boitata != 0)
         {
             _playerController._canTatuTransform = true;
@@ -98,24 +158,11 @@ public class SceneController : MonoBehaviour
             _playerController._canTatuTransform = false;
         }
 
-            // Hp Máximo
+        // Hp Máximo
         _playerController.vidaMax = 3 + hpUp01 + hpUp02 + hpUp03;
 
-            // Sp Máximo
+        // Sp Máximo
         _playerController.dashLimit = iara + spUp01 + spUp02;
-
-        // FadeIn
-        StartCoroutine("FadeIn");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (deathScreen.active == true)
-        {
-            _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            _player.GetComponent<Rigidbody>().useGravity = false;
-        }
     }
 
     private void LateUpdate()

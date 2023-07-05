@@ -68,7 +68,7 @@ public class EnemyController : MonoBehaviour
 
     void Flip()
     {
-        if (Vector3.Distance(transform.position, _player.transform.position) > attackDistance)
+        if (Vector3.Distance(transform.position, _player.transform.position) > attackDistance && !_invulneravel)
         {
             if (_rb.velocity.x > 0)
             {

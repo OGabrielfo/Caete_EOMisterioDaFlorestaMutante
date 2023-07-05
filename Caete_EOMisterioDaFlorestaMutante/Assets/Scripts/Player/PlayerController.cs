@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Pular
-            if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform)
+            if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform && !IsInWall())
             {
                 Jump();
             }
@@ -176,21 +176,6 @@ public class PlayerController : MonoBehaviour
             Swim();
         } else {
             _isSwiming = false;
-        }
-        */
-        /*
-        // Controle de Vida e Morte
-        if (vida <= 0)
-        {
-            transform.localScale = Vector3.zero;
-            if (timer <= 0)
-            {
-                SceneManager.LoadScene("SampleScene");
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
         }
         */
     }
@@ -489,7 +474,7 @@ public class PlayerController : MonoBehaviour
                 _rigidbody.useGravity = false;
                 Swim();
             }
-            else
+            else if(!_canSwim)
             {
                 vida = 0;
             }

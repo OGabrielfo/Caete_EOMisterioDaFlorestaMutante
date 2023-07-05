@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.HighDefinition.CameraSettings;
 
 public class MenuPrincipal : MonoBehaviour
 {
     private GameController gameController;
 
-    public GameObject loadingScreen;
+    public GameObject loadingScreen, configScreen;
 
     public Button continuar;
 
@@ -18,6 +20,11 @@ public class MenuPrincipal : MonoBehaviour
     public Sprite[] chargingAnimation;
 
     public GameObject transition;
+
+    public AudioMixer audioMixer;
+
+    [SerializeField] private Slider volumeMusic;
+    [SerializeField] private Slider volumeSFX;
 
     private void Awake()
     {
@@ -66,9 +73,28 @@ public class MenuPrincipal : MonoBehaviour
 
     public void Config()
     {
-
+        configScreen.SetActive(true);
     }
-    
+
+    public void CloseConfig()
+    {
+        configScreen.SetActive(false);
+    }
+
+    public void SFXVolume()
+    {
+        audioMixer.SetFloat("SFXVolume", volumeSFX.value);
+        gameController._volumeSFX = volumeSFX.value;
+        gameController.SaveConfigs();
+    }
+
+    public void MusicVolume()
+    {
+        audioMixer.SetFloat("MusicVolume", volumeMusic.value);
+        gameController._volumeMusic = volumeMusic.value;
+        gameController.SaveConfigs();
+    }
+
     IEnumerator LoadGameScene()
     {
         loadingScreen.SetActive(true);

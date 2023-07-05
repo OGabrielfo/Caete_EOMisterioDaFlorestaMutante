@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -214,7 +214,19 @@ MonoBehaviour:
   m_Value: -45.2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 276198701}
+        m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
+        m_MethodName: SFXVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &97050830
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +431,19 @@ MonoBehaviour:
   m_Value: -27.6
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 276198701}
+        m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
+        m_MethodName: MusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &168341771
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1593281110}
+  configScreen: {fileID: 493075670}
   continuar: {fileID: 1705189019}
   chargingStone: {fileID: 2008822905}
   chargingAnimation:
@@ -603,6 +628,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6721cf5e7428ff44a9a7ddf5e3c8de45, type: 3}
   - {fileID: 21300000, guid: d6268ec8fe9a6e54d887609cfdf9b597, type: 3}
   transition: {fileID: 1369286559}
+  audioMixer: {fileID: 24100000, guid: 9ecee75f6843712469ec7e16e0b229d0, type: 2}
+  volumeMusic: {fileID: 120176586}
+  volumeSFX: {fileID: 69736853}
 --- !u!1 &340890420
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +751,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 367063602}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 276198701}
+        m_TargetAssemblyTypeName: MenuPrincipal, Assembly-CSharp
+        m_MethodName: CloseConfig
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &367063602
 MonoBehaviour:
   m_ObjectHideFlags: 0
