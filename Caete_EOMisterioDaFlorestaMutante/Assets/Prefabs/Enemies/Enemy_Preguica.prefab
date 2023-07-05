@@ -47,12 +47,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.58701515, y: 1.259594, z: 1}
-  m_Center: {x: -0.3362875, y: 0.035398483, z: 0}
+  m_Size: {x: 1.2345982, y: 1.5044365, z: 1}
+  m_Center: {x: -0.7288637, y: -0.08702278, z: 0}
 --- !u!1 &1770717517061890234
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,7 +78,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770717517061890234}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.48063, y: -0.39470673, z: -2.0836036}
+  m_LocalPosition: {x: 3.97, y: -0.39470673, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -132,7 +132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5609572653893346824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5416298, y: -0.39470673, z: -2.0836036}
+  m_LocalPosition: {x: 1.5416298, y: -0.39470673, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5893322258006734973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.23137093, y: -0.39470673, z: -2.0836036}
+  m_LocalPosition: {x: -0.91, y: -0.39470673, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -292,7 +292,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6970033565193204862}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7231865, y: -0.30065155, z: -2.0836036}
+  m_LocalPosition: {x: 1.55, y: -0.30065155, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -429,7 +429,7 @@ MonoBehaviour:
   attackCol: {fileID: 1707442128364000290}
   patrolLimit01: {fileID: 5893322258006734973}
   patrolLimit02: {fileID: 1770717517061890234}
-  vida: 3
+  vidaTotal: 3
   speed: 1.5
   attackDistance: 1.4
   playerIdentifier: {fileID: 1388687393124490395}

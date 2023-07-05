@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour
     IEnumerator Respawn()
     {
         _dead = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(120f);
         vida = vidaTotal;
         _dead = false;
         _rb.useGravity = true;
