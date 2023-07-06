@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     // WallJump
     public float wallHorizontalForce;
     public float wallJumpForce;
+    public GameObject wallJumpSmoke;
     
     //public float ClimbSpeed = 3f;
     
@@ -287,22 +288,27 @@ public class PlayerController : MonoBehaviour
     IEnumerator WallJump()
     {
         _isWallJumping = true;
+        _jumpCounter = 1;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _rigidbody.velocity = new Vector3(0f, 0f, 0f);
         _rigidbody.AddForce(new Vector3((horizontalInput * -1) * wallHorizontalForce, 1f * (wallJumpForce), 0f), ForceMode.Impulse);
         Flip();
         _anim.SetTrigger("WallJump");
+
+        if (_faceRight)
+        {
+            wallJumpSmoke.GetComponent<SpriteRenderer>().flipX = true;
+            Instantiate(wallJumpSmoke, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            wallJumpSmoke.GetComponent<SpriteRenderer>().flipX = false;
+            Instantiate(wallJumpSmoke, transform.position, Quaternion.identity);
+        }
+
         yield return new WaitForSeconds(0.3f);
         _isWallJumping = false;
     }
-
-    /*void WallJump()
-    {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        _rigidbody.velocity = new Vector3(0f, 0f, 0f);
-        _rigidbody.AddForce(new Vector3((horizontalInput * -1) * jumpForce, 1f * jumpForce, 0f), ForceMode.Impulse);
-        _anim.SetTrigger("WallJump");
-    }*/
 
     void Flip()
     {
@@ -402,7 +408,7 @@ public class PlayerController : MonoBehaviour
             _anim.SetTrigger("TakeDamage");
         }
     }
-    
+
     IEnumerator Dash()
     {
         float startTime = Time.time;
