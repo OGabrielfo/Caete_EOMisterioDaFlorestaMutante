@@ -13,7 +13,7 @@ public class GoCeiling : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (!animator.GetBool("PlayerChase"))
+        if (!animator.GetBool("PlayerChase") && !animator.GetBool("IsDead"))
         {
             animator.gameObject.GetComponent<EnemyBatController>().MoveToCeiling();
         }

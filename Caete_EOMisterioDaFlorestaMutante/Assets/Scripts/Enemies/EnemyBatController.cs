@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBatController : MonoBehaviour
 {
-    public GameObject /*attackCol,*/ ceilingPoint;
+    public GameObject /*attackCol,*/ ceilingPoint, explosionFX;
     public int vidaTotal;
     public float speed;
 
@@ -74,20 +74,20 @@ public class EnemyBatController : MonoBehaviour
 
     public void EnemyDead()
     {
-        _rb.useGravity = false;
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        
         StartCoroutine("Respawn");
     }
 
     IEnumerator Respawn()
     {
-        transform.position = ceilingPoint.transform.position;
         _dead = true;
-        yield return new WaitForSeconds(120f);
+        yield return new WaitForSeconds(5f);
+        transform.position = ceilingPoint.transform.position;
         vida = vidaTotal;
+        explosionFX.SetActive(false);
         _dead = false;
-        _rb.useGravity = true;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
     }
@@ -131,5 +131,10 @@ public class EnemyBatController : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerController>().SendMessage("ReceberDano");
         }
+    }
+
+    public void DeathExplosion()
+    {
+        explosionFX.SetActive(true);
     }
 }

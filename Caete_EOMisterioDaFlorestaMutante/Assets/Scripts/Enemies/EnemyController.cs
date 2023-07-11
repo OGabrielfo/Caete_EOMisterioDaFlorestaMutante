@@ -5,7 +5,7 @@ using UnityEngine.Video;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject attackCol, patrolLimit01, patrolLimit02;
+    public GameObject attackCol, patrolLimit01, patrolLimit02, explosionFX;
     public int vidaTotal;
     public float speed;
     public float attackDistance;
@@ -135,9 +135,15 @@ public class EnemyController : MonoBehaviour
         _dead = true;
         yield return new WaitForSeconds(120f);
         vida = vidaTotal;
+        explosionFX.SetActive(false);
         _dead = false;
         _rb.useGravity = true;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
+    }
+
+    public void DeathExplosion()
+    {
+        explosionFX.SetActive(true);
     }
 }
