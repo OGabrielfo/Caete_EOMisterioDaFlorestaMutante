@@ -83,7 +83,7 @@ public class EnemyBatController : MonoBehaviour
     IEnumerator Respawn()
     {
         _dead = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(120f);
         transform.position = ceilingPoint.transform.position;
         vida = vidaTotal;
         explosionFX.SetActive(false);
