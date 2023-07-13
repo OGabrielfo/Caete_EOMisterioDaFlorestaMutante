@@ -214,6 +214,7 @@ public class PlayerController : MonoBehaviour
         float horizontalVelocity = _movement.normalized.x * speed;
         _rigidbody.velocity = new Vector3(horizontalVelocity, _rigidbody.velocity.y, _rigidbody.velocity.z);
     }
+
     /* Tranf Tatu
     void TatuTransform()
     {
@@ -510,17 +511,6 @@ public class PlayerController : MonoBehaviour
     }
 
     /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "RopeSegment" && !_isTatuTransform && _canDash)
-        {
-            vineVelocityWhenGrabbed = _rigidbody.velocity * 2.5f;
-            other.GetComponent<Rigidbody>().velocity = vineVelocityWhenGrabbed;
-            _isSwinging = true;
-            _currentSwingable = other.transform;
-        }
-    }
-
     private void OnCollisionStay(Collision collision)
     {
         if (collision.collider.tag == "EscavationBlock")

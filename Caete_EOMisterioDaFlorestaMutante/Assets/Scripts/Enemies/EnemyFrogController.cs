@@ -74,6 +74,7 @@ public class EnemyFrogController : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        StopCoroutine("FrogFireDelay");
 
         StartCoroutine("Respawn");
     }
@@ -87,5 +88,11 @@ public class EnemyFrogController : MonoBehaviour
         _dead = false;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        StartCoroutine("FrogFireDelay");
+    }
+
+    public void DeathExplosion()
+    {
+        explosionFX.SetActive(true);
     }
 }
