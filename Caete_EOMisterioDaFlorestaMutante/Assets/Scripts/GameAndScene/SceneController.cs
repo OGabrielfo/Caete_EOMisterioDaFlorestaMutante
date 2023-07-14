@@ -77,7 +77,7 @@ public class SceneController : MonoBehaviour
         UpdatePlayerInformation();
 
         // Player Death
-        if (deathScreen.active == true)
+        if (deathScreen.activeSelf)
         {
             _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
             _player.GetComponent<Rigidbody>().useGravity = false;

@@ -37,7 +37,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
-            if (_pauseMenu.active == false)
+            if (!_pauseMenu.activeSelf)
             {
                 _pauseMenu.SetActive(true);
                 Time.timeScale = 0f;
@@ -49,7 +49,7 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (_habilidadeMenu.active == true)
+        if (_habilidadeMenu.activeSelf)
         {
             if (_gameController._mula > 0)
             {
@@ -133,7 +133,7 @@ public class PauseMenu : MonoBehaviour
 
     public void SairSemSalvar()
     {
-        if (_sceneController.deathScreen.active == true)
+        if (_sceneController.deathScreen.activeSelf)
         {
             _sceneController.deathScreen.SetActive(false);
         }

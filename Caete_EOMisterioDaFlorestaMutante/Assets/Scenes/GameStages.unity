@@ -4566,7 +4566,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160693159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.78, y: 1.63, z: 0}
+  m_LocalPosition: {x: -16.19, y: 3.2799988, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30497,7 +30497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 735760283}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30628,7 +30628,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742873817}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.000000008481505, z: 0.0000000014418566, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35483,7 +35483,7 @@ GameObject:
   - component: {fileID: 910082106}
   - component: {fileID: 910082108}
   - component: {fileID: 910082107}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36176,13 +36176,13 @@ GameObject:
   m_Component:
   - component: {fileID: 931708881}
   - component: {fileID: 931708882}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &931708881
 Transform:
   m_ObjectHideFlags: 0
@@ -38428,7 +38428,7 @@ GameObject:
   - component: {fileID: 1006452386}
   - component: {fileID: 1006452388}
   - component: {fileID: 1006452387}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38522,7 +38522,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 64
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -39044,10 +39044,11 @@ GameObject:
   - component: {fileID: 1023563654}
   - component: {fileID: 1023563659}
   - component: {fileID: 1023563658}
+  - component: {fileID: 1023563660}
   - component: {fileID: 1023563657}
   - component: {fileID: 1023563656}
   - component: {fileID: 1023563655}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MulaSemCabeca
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39062,7 +39063,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023563653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 3.47, z: 0}
+  m_LocalPosition: {x: 0.25, y: 3.2799988, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39084,6 +39085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc70eec7854645542b5e419372338446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boss: {fileID: 0}
 --- !u!114 &1023563656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39096,6 +39098,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b282c11f76c859e4aa09b90b94c486ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackCol: {fileID: 931708880}
+  runAttack: {fileID: 1470778421}
+  sides:
+  - {fileID: 160693160}
+  - {fileID: 1811900678}
+  speed: 10
+  vidaTotal: 6
+  waitTime: 2
+  _counter: 0
+  _counterLimit: 0
+  _rb: {fileID: 0}
 --- !u!136 &1023563657
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -39192,6 +39205,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!54 &1023563660
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023563653}
+  serializedVersion: 4
+  m_Mass: 20
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!1 &1023970795
 GameObject:
   m_ObjectHideFlags: 0
@@ -53861,13 +53901,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1470778422}
   - component: {fileID: 1470778423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunAttackCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1470778422
 Transform:
   m_ObjectHideFlags: 0
@@ -64743,7 +64783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1811900677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.07, y: 1.63, z: 0}
+  m_LocalPosition: {x: 14.07, y: 3.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73717,7 +73757,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2094250391}
-  m_LocalRotation: {x: -0, y: -0.0000000084815035, z: 0.0000000014418564, w: 1}
+  m_LocalRotation: {x: -0, y: 1.7763568e-15, z: -2.7755576e-16, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
