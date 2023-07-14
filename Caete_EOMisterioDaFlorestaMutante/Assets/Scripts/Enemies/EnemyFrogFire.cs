@@ -67,7 +67,7 @@ public class EnemyFrogFire : MonoBehaviour
 
                 _rb.constraints = RigidbodyConstraints.FreezeRotationZ;
         }
-        else if (collision.gameObject.CompareTag("Player"))
+        else if (collision.gameObject.CompareTag("Player") && !frogFireExplosion.activeSelf)
         {
             frogFireExplosion.SetActive(true);
             _anim.SetTrigger("Collision");

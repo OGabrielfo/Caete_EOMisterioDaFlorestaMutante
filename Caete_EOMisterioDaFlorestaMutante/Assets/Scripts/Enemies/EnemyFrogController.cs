@@ -12,11 +12,13 @@ public class EnemyFrogController : MonoBehaviour
     private int vida;
     private bool _dead;
     private Animator _anim;
+    private Rigidbody _rb;
 
     // Start is called before the first frame update
     void Start()
     {
         vida = vidaTotal;
+        _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
         StartCoroutine("FrogFireDelay");
     }
@@ -24,7 +26,10 @@ public class EnemyFrogController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(_dead)
+        {
+            _rb.velocity = Vector3.zero;
+        }
     }
 
     IEnumerator FrogFireDelay()
@@ -47,16 +52,19 @@ public class EnemyFrogController : MonoBehaviour
     public void FrogFire()
     {
         StartCoroutine("FrogFireDelay");
-        GameObject bullet = Instantiate(frogFire, firePoint.transform.position, Quaternion.identity);
-        bullet.GetComponent<EnemyFrogFire>().SetFallVelocity(fireFallVelocity, gameObject.GetComponent<SpriteRenderer>().flipX);
-        bullet.layer = LayerMask.NameToLayer("Enemy");
-        if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
+        if (!_dead)
         {
-            bullet.GetComponent<Rigidbody>().velocity = new Vector3(fireSpeed * -1, 2f, 0f);
-        }
-        else
-        {
-            bullet.GetComponent<Rigidbody>().velocity = new Vector3(fireSpeed, 2f, 0f);
+            GameObject bullet = Instantiate(frogFire, firePoint.transform.position, Quaternion.identity);
+            bullet.GetComponent<EnemyFrogFire>().SetFallVelocity(fireFallVelocity, gameObject.GetComponent<SpriteRenderer>().flipX);
+            bullet.layer = LayerMask.NameToLayer("Enemy");
+            if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
+            {
+                bullet.GetComponent<Rigidbody>().velocity = new Vector3(fireSpeed * -1, 2f, 0f);
+            }
+            else
+            {
+                bullet.GetComponent<Rigidbody>().velocity = new Vector3(fireSpeed, 2f, 0f);
+            }
         }
     }
 
