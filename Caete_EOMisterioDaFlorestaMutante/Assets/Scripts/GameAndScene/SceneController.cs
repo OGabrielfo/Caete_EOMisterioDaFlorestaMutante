@@ -162,7 +162,7 @@ public class SceneController : MonoBehaviour
         _playerController.vidaMax = 3 + hpUp01 + hpUp02 + hpUp03;
 
         // Sp Máximo
-        _playerController.dashLimit = iara + spUp01 + spUp02;
+        _playerController.dashLimit = mula + spUp01 + spUp02;
     }
 
     private void LateUpdate()

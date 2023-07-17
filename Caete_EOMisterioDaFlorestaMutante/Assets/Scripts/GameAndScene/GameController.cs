@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
     #region Variáveis Gerais
     public int _gamePlayed;
     public float _volumeMusic, _volumeSFX;
+    public GameObject bossMula;
     #endregion
 
     private void Awake()
@@ -47,7 +49,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-
+        if (bossMula.IsDestroyed())
+        {
+            _mula = 1;
+        }
     }
 
     public void NewGame() {
