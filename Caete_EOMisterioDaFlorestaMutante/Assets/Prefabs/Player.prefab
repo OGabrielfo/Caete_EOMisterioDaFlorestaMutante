@@ -189,7 +189,7 @@ Transform:
   - {fileID: 7379928788241717187}
   - {fileID: 6277233241647573861}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4933683042571553860
 SpriteRenderer:
@@ -570,7 +570,7 @@ Light:
   m_Intensity: 10
   m_Range: 5.39
   m_SpotAngle: 66.62262
-  m_InnerSpotAngle: 66.62262
+  m_InnerSpotAngle: 25.851128
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
