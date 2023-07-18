@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class PlayerController : MonoBehaviour
     // Movement
     public float speed;
     public float jumpForce;
+
+    // WallJump
+    public float wallHorizontalForce;
+    public float wallJumpForce;
+    public GameObject wallJumpSmoke;
     
     //public float ClimbSpeed = 3f;
     
@@ -29,8 +35,8 @@ public class PlayerController : MonoBehaviour
     // GroundCheck
     public Transform groundCheck;
     public LayerMask ground;
-    //public LayerMask wall;
-    //public Transform wallCheck;
+    public LayerMask wall;
+    public Transform wallCheck;
     public LayerMask water;
     //public Transform waterCheck;
     //public Vector3 vineVelocityWhenGrabbed;
@@ -57,6 +63,8 @@ public class PlayerController : MonoBehaviour
     private bool _isSwiming = false;
     private bool _isSwinging = false;
     private bool _isDashing = false;
+    private bool _isWallJumping = false;
+    private bool _invulneravel = false;
     //private float _timer = 2f;
 
     // Habilidades desbloqueadas
@@ -100,13 +108,13 @@ public class PlayerController : MonoBehaviour
             }
 
             // Andar
-            if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming)
+            if (!_isAttacking && !_isSwinging && !_isDashing && !_isSwiming && !_isWallJumping)
             {
                 PlayerMove();
             }
 
             // Pular
-            if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform)
+            if (Input.GetButtonDown("Jump") && ((_jumpCounter < jumpLimit) || IsGrounded()) && !_isTatuTransform && !IsInWall())
             {
                 Jump();
             }
@@ -115,6 +123,20 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Attack") && !_isTatuTransform && !_isSwiming && !_isClimbing)
             {
                 AttackOn();
+            }
+
+            // Wall Jump
+            if (IsInWall() && !IsGrounded() && _movement != Vector3.zero)
+            {
+                _rigidbody.drag = 8f;
+                if (Input.GetButtonDown("Jump"))
+                {
+                    StartCoroutine("WallJump");
+                }
+            }
+            else
+            {
+                _rigidbody.drag = 0f;
             }
         }
         
@@ -157,21 +179,6 @@ public class PlayerController : MonoBehaviour
             _isSwiming = false;
         }
         */
-        /*
-        // Controle de Vida e Morte
-        if (vida <= 0)
-        {
-            transform.localScale = Vector3.zero;
-            if (timer <= 0)
-            {
-                SceneManager.LoadScene("SampleScene");
-            }
-            else
-            {
-                timer -= Time.deltaTime;
-            }
-        }
-        */
     }
 
     void LateUpdate()
@@ -182,6 +189,7 @@ public class PlayerController : MonoBehaviour
         _anim.SetFloat("VerticalVelocity", _rigidbody.velocity.y);
         _anim.SetBool("IsSwiming",_isSwiming);
         _anim.SetBool("isOverWater", IsOverWater());
+        _anim.SetBool("WallJumping", IsInWall());
         /*
         _anim.SetBool("Transform",_isTatuTransform);
         _anim.SetBool("isClimbing", _isClimbing);
@@ -192,7 +200,6 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove()
     {
-
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         _movement = new Vector3(horizontalInput, 0f, 0f);
         if (horizontalInput < 0f && _faceRight == true)
@@ -207,7 +214,8 @@ public class PlayerController : MonoBehaviour
         float horizontalVelocity = _movement.normalized.x * speed;
         _rigidbody.velocity = new Vector3(horizontalVelocity, _rigidbody.velocity.y, _rigidbody.velocity.z);
     }
-    /*
+
+    /* Tranf Tatu
     void TatuTransform()
     {
         if (_isTatuTransform == false)
@@ -233,6 +241,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, verticalvelocity, _rigidbody.velocity.z);
     }
     */
+
     void Swim()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -277,6 +286,31 @@ public class PlayerController : MonoBehaviour
         _jumpCounter++;
     }
 
+    IEnumerator WallJump()
+    {
+        _isWallJumping = true;
+        _jumpCounter = 1;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        _rigidbody.velocity = new Vector3(0f, 0f, 0f);
+        _rigidbody.AddForce(new Vector3((horizontalInput * -1) * wallHorizontalForce, 1f * (wallJumpForce), 0f), ForceMode.Impulse);
+        Flip();
+        _anim.SetTrigger("WallJump");
+
+        if (_faceRight)
+        {
+            wallJumpSmoke.GetComponent<SpriteRenderer>().flipX = true;
+            Instantiate(wallJumpSmoke, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            wallJumpSmoke.GetComponent<SpriteRenderer>().flipX = false;
+            Instantiate(wallJumpSmoke, transform.position, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(0.3f);
+        _isWallJumping = false;
+    }
+
     void Flip()
     {
         _faceRight = !_faceRight;
@@ -286,14 +320,15 @@ public class PlayerController : MonoBehaviour
             //transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
             AttackCol.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+            wallCheck.transform.position = new Vector3(transform.position.x + 0.55f, wallCheck.transform.position.y, wallCheck.transform.position.z);
         }
         else
         {
             //transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             AttackCol.transform.localRotation = new Quaternion(0f, 180f, 0f, 0f);
+            wallCheck.transform.position = new Vector3(transform.position.x - 0.55f, wallCheck.transform.position.y, wallCheck.transform.position.z);
         }
-
     }
 
     bool IsGrounded()
@@ -306,6 +341,19 @@ public class PlayerController : MonoBehaviour
         return Physics.CheckSphere(new Vector3(groundCheck.position.x, groundCheck.position.y - 0.2f, groundCheck.position.z), 0.02f, water);
     }
 
+    bool IsInWall()
+    {
+        if (IsGrounded() || _movement == Vector3.zero)
+        {
+            return false;
+        }
+        else
+        {
+            return Physics.CheckSphere(wallCheck.position, 0.02f, wall);
+        }
+        
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         // Reinicia os pulos quando o jogador toca no chão
@@ -315,7 +363,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
     void AttackOn()
     {
         if (IsGrounded())
@@ -354,14 +401,14 @@ public class PlayerController : MonoBehaviour
         _isAttacking = false;
     }
 
-    public void ReceberDano(int quantidade)
+    public void ReceberDano()
     {
-        if (vida > 0)
+        if (vida > 0 && !_invulneravel)
         {
-            vida -= quantidade;
+            vida--;
+            _anim.SetTrigger("TakeDamage");
         }
     }
-    
 
     IEnumerator Dash()
     {
@@ -416,7 +463,13 @@ public class PlayerController : MonoBehaviour
         _isDashing = false;
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.SendMessage("ReceberDano");
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -428,7 +481,7 @@ public class PlayerController : MonoBehaviour
                 _rigidbody.useGravity = false;
                 Swim();
             }
-            else
+            else if(!_canSwim)
             {
                 vida = 0;
             }
@@ -445,18 +498,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*
-    private void OnTriggerEnter(Collider other)
+    public void Invulneravel()
     {
-        if(other.gameObject.tag == "RopeSegment" && !_isTatuTransform && _canDash)
+        if (_invulneravel)
         {
-            vineVelocityWhenGrabbed = _rigidbody.velocity * 2.5f;
-            other.GetComponent<Rigidbody>().velocity = vineVelocityWhenGrabbed;
-            _isSwinging = true;
-            _currentSwingable = other.transform;
+            _invulneravel = false;
+        }
+        else
+        {
+            _invulneravel = true;
         }
     }
 
+    /*
     private void OnCollisionStay(Collision collision)
     {
         if (collision.collider.tag == "EscavationBlock")

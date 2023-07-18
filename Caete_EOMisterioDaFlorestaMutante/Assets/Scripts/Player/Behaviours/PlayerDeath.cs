@@ -6,18 +6,30 @@ using UnityEngine;
 public class PlayerDeath : StateMachineBehaviour
 {
     private SceneController sceneController;
+    private float drownSpeed;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        drownSpeed = animator.GetComponent<Rigidbody>().velocity.y;
         sceneController = GameObject.FindGameObjectWithTag("GameController").GetComponent<SceneController>();
-        animator.GetComponent<Rigidbody>().velocity = Vector3.zero;
         animator.GetComponent<Rigidbody>().useGravity = false;
+        if (animator.GetBool("isGrounded"))
+        {
+            animator.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+        if (animator.GetBool("isOverWater"))
+        {
+            if (drownSpeed < 0)
+            {
+                drownSpeed += 0.5f;
+            }
+            animator.GetComponent<Rigidbody>().velocity = new Vector3(0f, drownSpeed, 0f);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

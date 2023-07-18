@@ -11,7 +11,8 @@ public class PauseMenu : MonoBehaviour
     private GameController _gameController;
     private SceneController _sceneController;
     
-    public GameObject _pauseMenu;
+    public GameObject _pauseMenu, _habilidadeMenu;
+    public GameObject _jaguatirica, _macaco, _peixe, _tatu;
     public AudioMixer audioMixer;
 
     [SerializeField] private Slider volumeMusic;
@@ -36,7 +37,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
         {
-            if (_pauseMenu.active == false)
+            if (!_pauseMenu.activeSelf)
             {
                 _pauseMenu.SetActive(true);
                 Time.timeScale = 0f;
@@ -45,6 +46,45 @@ public class PauseMenu : MonoBehaviour
             {
                 _pauseMenu.SetActive(false);
                 Time.timeScale = 1f;
+            }
+        }
+
+        if (_habilidadeMenu.activeSelf)
+        {
+            if (_gameController._mula > 0)
+            {
+                _jaguatirica.SetActive(true);
+            }
+            else
+            {
+                _jaguatirica.SetActive(false);
+            }
+
+            if (_gameController._mapinguari > 0)
+            {
+                _macaco.SetActive(true);
+            }
+            else
+            {
+                _macaco.SetActive(false);
+            }
+
+            if (_gameController._iara > 0)
+            {
+                _peixe.SetActive(true);
+            }
+            else
+            {
+                _peixe.SetActive(false);
+            }
+
+            if (_gameController._boitata > 0)
+            {
+                _tatu.SetActive(true);
+            }
+            else
+            {
+                _tatu.SetActive(false);
             }
         }
     }
@@ -57,7 +97,12 @@ public class PauseMenu : MonoBehaviour
 
     public void Habilidades()
     {
+        _habilidadeMenu.SetActive(true);
+    }
 
+    public void CloseHabilidades()
+    {
+        _habilidadeMenu.SetActive(false);
     }
 
     public void Recomecar()
@@ -88,7 +133,7 @@ public class PauseMenu : MonoBehaviour
 
     public void SairSemSalvar()
     {
-        if (_sceneController.deathScreen.active == true)
+        if (_sceneController.deathScreen.activeSelf)
         {
             _sceneController.deathScreen.SetActive(false);
         }

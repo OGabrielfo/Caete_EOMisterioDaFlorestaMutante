@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject attackCol, patrolLimit01, patrolLimit02;
-    public int vida;
+    public GameObject attackCol, patrolLimit01, patrolLimit02, explosionFX;
+    public int vidaTotal;
     public float speed;
     public float attackDistance;
 
@@ -16,6 +17,8 @@ public class EnemyController : MonoBehaviour
     [HideInInspector] public Rigidbody _rb;
     private GameObject _player;
     private bool _invulneravel = false;
+    private bool _dead = false;
+    private int vida;
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +26,14 @@ public class EnemyController : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _anim = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody>();
+        vida = vidaTotal;
     }
 
     // Update is called once per frame
     void Update()
     {
         Flip();
-        if (!_isAttacking && Vector3.Distance(transform.position, _player.transform.position) <= attackDistance)
+        if (!_isAttacking && Vector3.Distance(transform.position, _player.transform.position) <= attackDistance && !_dead)
         {
             _anim.SetBool("Attack", true);
         }
@@ -44,7 +48,7 @@ public class EnemyController : MonoBehaviour
         _anim.SetBool("PlayerChase", playerIdentifier.playerInArea);
         _anim.SetInteger("Life", vida);
         _anim.SetFloat("Speed", speed);
-
+        _anim.SetBool("IsDead", _dead);
     }
 
     private void Attack()
@@ -60,12 +64,15 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.SendMessage("ReceberDano");
+        }
     }
 
     void Flip()
     {
-        if (Vector3.Distance(transform.position, _player.transform.position) > attackDistance)
+        if (Vector3.Distance(transform.position, _player.transform.position) > attackDistance && !_invulneravel)
         {
             if (_rb.velocity.x > 0)
             {
@@ -94,11 +101,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void ReceberDano(int dano)
+    public void ReceberDano()
     {
         if (vida > 0 && !_invulneravel)
         {
-            vida -= dano;
+            vida--;
             _anim.SetTrigger("TakeDamage");
         }
     }
@@ -113,5 +120,30 @@ public class EnemyController : MonoBehaviour
         {
             _invulneravel = true;
         }
+    }
+
+    public void EnemyDead()
+    {
+        _rb.useGravity = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        StartCoroutine("Respawn");
+    }
+
+    IEnumerator Respawn()
+    {
+        _dead = true;
+        yield return new WaitForSeconds(120f);
+        vida = vidaTotal;
+        explosionFX.SetActive(false);
+        _dead = false;
+        _rb.useGravity = true;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<CapsuleCollider>().enabled = true;
+    }
+
+    public void DeathExplosion()
+    {
+        explosionFX.SetActive(true);
     }
 }

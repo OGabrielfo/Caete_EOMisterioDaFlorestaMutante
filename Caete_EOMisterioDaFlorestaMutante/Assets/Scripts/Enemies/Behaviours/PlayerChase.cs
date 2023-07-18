@@ -7,13 +7,22 @@ public class PlayerChase : StateMachineBehaviour
 {
     private GameObject _player;
     private Rigidbody _rb;
-    
+
+    private bool _aereo;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         _rb = animator.GetComponent<Rigidbody>();
+        if(_rb.useGravity)
+        {
+            _aereo = false;
+        }
+        else
+        {
+            _aereo = true;
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -21,9 +30,18 @@ public class PlayerChase : StateMachineBehaviour
     {
         if (animator.GetBool("PlayerChase"))
         {
-            Vector3 direction = _player.transform.position - animator.transform.position;
-            direction.Normalize();
-            _rb.velocity = direction * animator.GetFloat("Speed");
+            if (_aereo)
+            {
+                Vector3 direction = _player.transform.position - animator.transform.position;
+                direction.Normalize();
+                _rb.velocity = direction * animator.GetFloat("Speed");
+            }
+            else
+            {
+                Vector3 direction = _player.transform.position - animator.transform.position;
+                direction.Normalize();
+                _rb.velocity = new Vector3(direction.x * animator.GetFloat("Speed"), _rb.velocity.y, 0f);
+            }
         }
         else
         {
