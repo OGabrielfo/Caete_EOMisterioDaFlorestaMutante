@@ -26,6 +26,8 @@ public class BossMula_Attack : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        int action = Random.Range(1, 3);
+        animator.SetInteger("RandomAction", action);
         animator.SetBool("Invulneravel", false);
     }
 

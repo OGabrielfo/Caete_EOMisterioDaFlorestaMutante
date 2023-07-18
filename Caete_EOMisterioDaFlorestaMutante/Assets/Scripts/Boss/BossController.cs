@@ -16,7 +16,10 @@ public class BossController : MonoBehaviour
     private void Awake()
     {
         retratoBoss.SetActive(true);
-        if ()
+        if (PlayerPrefs.HasKey(bossName) && PlayerPrefs.GetInt(bossName) != 0)
+        {
+            Destroy(bossObject);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -52,6 +55,18 @@ public class BossController : MonoBehaviour
         bossHUD.SetActive(false);
         controleHP.SetActive(false);
         retratoBoss.SetActive(false);
+        switch (bossName)
+        {
+            case "Mula":
+                gameController._mula = 1;
+                break;
+            case "Mapinguari":
+                gameController._mapinguari = 1;
+                break;
+            default: break;
+        }
+
+        gameController.SaveGame();
 
         Destroy(bossObject);
 

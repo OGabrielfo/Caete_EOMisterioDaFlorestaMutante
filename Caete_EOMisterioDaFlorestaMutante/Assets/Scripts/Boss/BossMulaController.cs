@@ -13,6 +13,9 @@ public class BossMulaController : MonoBehaviour
     public float waitTime;
     [HideInInspector] public bool TakeDamage;
 
+    public Transform[] stonePositions;
+    public GameObject[] stoneObjects;
+
     private int _currentSide = 0;
     [HideInInspector]public int _counter, _counterLimit;
     private int _vidaAtual;
@@ -43,7 +46,7 @@ public class BossMulaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _counterLimit = (int)Mathf.Floor(vidaTotal / _vidaAtual);
+        _counterLimit = (int)Mathf.Floor(4 - (_vidaAtual/2));
         if (_counter < 1)
         {
             _anim.SetInteger("RandomAction", 0);
@@ -87,6 +90,8 @@ public class BossMulaController : MonoBehaviour
             }
 
             runAttack.SetActive(false);
+            int action = Random.Range(1, 3);
+            _anim.SetInteger("RandomAction", action);
             _counter--;
             _rb.velocity = Vector3.zero;
         }
@@ -144,8 +149,12 @@ public class BossMulaController : MonoBehaviour
         attackCol.SetActive(false);
     }
 
-    public void PowerActivate()
+    public void StoneAttack()
     {
-
+        for (int i = 0; i < (6 - (int)Mathf.Floor(_vidaAtual / 2)); i++)
+        {
+            Instantiate(stoneObjects[Random.Range(0, stoneObjects.Length)], stonePositions[Random.Range(0, stonePositions.Length)].transform.position, transform.rotation);
+        }
     }
+
 }
