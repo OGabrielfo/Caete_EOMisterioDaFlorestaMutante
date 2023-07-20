@@ -356,11 +356,29 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        /*if (collision.collider.tag == "EscavationBlock")
+        {
+            _contactBlock = collision.gameObject;
+        }*/
+
         // Reinicia os pulos quando o jogador toca no chão
         if (collision.gameObject.CompareTag("Ground") && IsGrounded())
         {
             _jumpCounter = 0;
         }
+
+        /*if (collision.gameObject.CompareTag("MovPlatform"))
+        {
+            transform.parent = collision.transform;
+        }*/
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        /*if (collision.gameObject.CompareTag("MovPlatform"))
+        {
+            transform.parent = null;
+        }*/
     }
 
     void AttackOn()
@@ -481,7 +499,7 @@ public class PlayerController : MonoBehaviour
                 _rigidbody.useGravity = false;
                 Swim();
             }
-            else if(!_canSwim)
+            else if(!_canSwim && !IsGrounded())
             {
                 vida = 0;
             }
@@ -509,15 +527,4 @@ public class PlayerController : MonoBehaviour
             _invulneravel = true;
         }
     }
-
-    /*
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.collider.tag == "EscavationBlock")
-        {
-            _contactBlock = collision.gameObject;
-        }
-        
-    }
-    */
 }
