@@ -18,9 +18,11 @@ public class PlayerController : MonoBehaviour
     public float wallHorizontalForce;
     public float wallJumpForce;
     public GameObject wallJumpSmoke;
-    
+
     //public float ClimbSpeed = 3f;
+    [HideInInspector] public bool danoEspinho = false;    
     
+
     // Swim
     public float SwimSpeed = 5f;
     public float empuxo = 5f;
@@ -126,7 +128,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Wall Jump
-            if (IsInWall() && !IsGrounded() && _movement != Vector3.zero)
+            if (IsInWall() && !IsGrounded() && _movement != Vector3.zero && !danoEspinho)
             {
                 _rigidbody.drag = 8f;
                 if (Input.GetButtonDown("Jump"))
@@ -485,7 +487,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.SendMessage("ReceberDano");
+            other.gameObject.SendMessage("ReceberDano");
         }
     }
 
