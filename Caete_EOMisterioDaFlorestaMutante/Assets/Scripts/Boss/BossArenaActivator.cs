@@ -27,4 +27,6 @@ public class BossArenaActivator : MonoBehaviour
             boss.SetActive(true);
         }
     }
+
+
 }

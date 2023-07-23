@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     // GroundCheck
     public Transform groundCheck;
     public LayerMask ground;
+    public LayerMask passPlat;
     public LayerMask wall;
     public Transform wallCheck;
     public LayerMask water;
@@ -335,7 +336,14 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
+        if (Physics.CheckSphere(groundCheck.position, 0.02f, passPlat))
+        {
+            return Physics.CheckSphere(groundCheck.position, 0.02f, passPlat);
+        }
+        else
+        {
+            return Physics.CheckSphere(groundCheck.position, 0.02f, ground);
+        }
     }
 
     bool IsOverWater()
@@ -487,7 +495,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.SendMessage("ReceberDano");
+            other.SendMessage("ReceberDano");
         }
     }
 

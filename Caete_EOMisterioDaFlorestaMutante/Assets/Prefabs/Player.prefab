@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3531114027301018199}
   - component: {fileID: 5170916485775259487}
   - component: {fileID: 656906936355416210}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AmbienceLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1006
+    m_Bits: 2030
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6277233241647573861}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 2882519804616369673}
   - component: {fileID: 5577593290951562327}
   - component: {fileID: 1218595838130201882}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -265,6 +265,7 @@ MonoBehaviour:
   wallJumpForce: 55
   wallJumpSmoke: {fileID: 6474258508927260222, guid: 8890b153991e70b4ba3ef748b8c30e26,
     type: 3}
+  danoEspinho: 0
   SwimSpeed: 3
   empuxo: 5
   flutuacao: 10
@@ -276,6 +277,9 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  passPlat:
+    serializedVersion: 2
+    m_Bits: 0
   wall:
     serializedVersion: 2
     m_Bits: 128
@@ -479,6 +483,8 @@ MonoBehaviour:
   death: {fileID: 8300000, guid: 527e853d1cc6da146810380d2519ef91, type: 3}
   isDamage: {fileID: 8300000, guid: c64b366d4922d5242b2873d3a52c22dc, type: 3}
   gainPower: {fileID: 8300000, guid: c75fbda1098a69749a4ef299423ea189, type: 3}
+  steps: {fileID: 0}
+  jump: {fileID: 0}
 --- !u!1 &3614814852441557936
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7379928788241717187}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: wallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 97845874021175882}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: groundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +559,7 @@ GameObject:
   - component: {fileID: 2126634477585605774}
   - component: {fileID: 1989535241007478360}
   - component: {fileID: 1234239920091689697}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: attackCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +657,7 @@ GameObject:
   - component: {fileID: 8348689736251526509}
   - component: {fileID: 7920228172469905578}
   - component: {fileID: 8541018291758041543}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BrilhoCaete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +728,7 @@ Light:
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4096
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0

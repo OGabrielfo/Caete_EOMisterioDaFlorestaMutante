@@ -22,7 +22,7 @@ public class FallingObjects : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.SendMessage("ReceberDano");
+            collision.gameObject.GetComponent<PlayerController>().SendMessage("ReceberDano");
             rockExplosion.SetActive(true);
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.GetComponent<MeshRenderer>().enabled = false;

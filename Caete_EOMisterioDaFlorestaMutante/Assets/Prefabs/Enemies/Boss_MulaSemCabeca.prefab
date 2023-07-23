@@ -551,7 +551,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5464872363330425762}
   - component: {fileID: 5915067168769914513}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: AttackCol
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ Transform:
   - {fileID: 6739266994864037249}
   - {fileID: 2092644155228973657}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4383080689622538024
 GameObject:
@@ -664,7 +664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1944125689051317444}
   - component: {fileID: 3517422422151097258}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: RunAttackCol
   m_TagString: Enemy
   m_Icon: {fileID: 0}

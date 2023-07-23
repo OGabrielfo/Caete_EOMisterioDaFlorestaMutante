@@ -121,7 +121,7 @@ public class BossMulaController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.SendMessage("ReceberDano");
+            other.gameObject.GetComponent<PlayerController>().SendMessage("ReceberDano");
         }
     }
 
