@@ -56,7 +56,8 @@ public class MenuPrincipal : MonoBehaviour
     {
         gameController.NewGame();
         //SceneManager.LoadSceneAsync("GameStages");
-        StartCoroutine("LoadGameScene");
+        //StartCoroutine("LoadGameScene");
+        SceneManager.LoadScene("CutSceneInicio");
     }
 
     public void LoadGame()

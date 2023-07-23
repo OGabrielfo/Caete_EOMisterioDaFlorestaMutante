@@ -20,7 +20,7 @@ public class MusicAndAmbienceAudioController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && musicSource.clip != musicClip && ambienceSource.clip != ambienceClip)
         {
             musicSource.clip = musicClip;
             ambienceSource.clip = ambienceClip;

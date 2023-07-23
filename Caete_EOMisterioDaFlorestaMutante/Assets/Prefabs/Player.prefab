@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25ab5bb607662b499f589a7d3ad9e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 5577593290951562327}
+  audioControl: {fileID: 5577593290951562327}
   fall: {fileID: 8300000, guid: 03cd06026278fb840a20ef306a2f51e9, type: 3}
   climb: {fileID: 8300000, guid: be017446cc62d1a4b8465ae97d0c38e7, type: 3}
   attack: {fileID: 8300000, guid: 32761ec47b214a84ca19f95ad2d20431, type: 3}
