@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6795972677815983186}
   - component: {fileID: 7611548361359719133}
   - component: {fileID: 576260228106620973}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: FrogFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 6689660366931487012, guid: 934eb8c735b2629438be02ec304ac816,
         type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6689660366931487012, guid: 934eb8c735b2629438be02ec304ac816,
         type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3768731041164588566}
   - component: {fileID: 1282475280579702961}
   - component: {fileID: 540004581668134471}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: PlayerIdentifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ Transform:
   - {fileID: 4711873914173445729}
   - {fileID: 3768731041164588566}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7874191893527032454
 GameObject:
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 2331347280264681932}
   - component: {fileID: 8809611118265284650}
   - component: {fileID: 3283065376160730598}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Morcego
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -399,6 +399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 6689660366931487012, guid: 55cb4ad3b2b487642bae717bda79a77b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6689660366931487012, guid: 55cb4ad3b2b487642bae717bda79a77b,
         type: 3}

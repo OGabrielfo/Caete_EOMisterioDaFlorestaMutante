@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2253996894683559104}
   - component: {fileID: 1489116054621736235}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: AttackCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 368421565762597804}
   - component: {fileID: 5159186528882224539}
   - component: {fileID: 1388687393124490395}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerIdentifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ Transform:
   - {fileID: 6967568841260106998}
   - {fileID: 547774413696834992}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6970033565193204862
 GameObject:

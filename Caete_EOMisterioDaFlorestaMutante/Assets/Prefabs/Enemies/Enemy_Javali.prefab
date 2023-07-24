@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 8601743763554099344}
   - component: {fileID: 4350935399744787874}
   - component: {fileID: 5190646992297287821}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: PlayerIdentifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7515990597071899469}
   - component: {fileID: 5755091394460403544}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: AttackCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ Transform:
   - {fileID: 2468658621545388102}
   - {fileID: 5099433470735635984}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2456480923203357319
 PrefabInstance:

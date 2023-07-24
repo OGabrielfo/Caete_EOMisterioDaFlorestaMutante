@@ -22,8 +22,11 @@ public class RecVida : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player")) {
-            other.gameObject.GetComponent<PlayerController>().vida++;
-            StartCoroutine("CoolDown");
+            if (other.gameObject.GetComponent<PlayerController>().vida < other.gameObject.GetComponent<PlayerController>().vidaMax)
+            {
+                other.gameObject.GetComponent<PlayerController>().vida++;
+                StartCoroutine("CoolDown");
+            }
         }
     }
 

@@ -56,7 +56,7 @@ public class EnemyFrogController : MonoBehaviour
         {
             GameObject bullet = Instantiate(frogFire, firePoint.transform.position, Quaternion.identity);
             bullet.GetComponent<EnemyFrogFire>().SetFallVelocity(fireFallVelocity, gameObject.GetComponent<SpriteRenderer>().flipX);
-            bullet.layer = LayerMask.NameToLayer("Enemy");
+            bullet.layer = LayerMask.NameToLayer("Attacks");
             if (gameObject.GetComponent<SpriteRenderer>().flipX == false)
             {
                 bullet.GetComponent<Rigidbody>().velocity = new Vector3(fireSpeed * -1, 2f, 0f);
