@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -210,6 +210,7 @@ GameObject:
   - component: {fileID: 276198700}
   - component: {fileID: 276198699}
   - component: {fileID: 276198702}
+  - component: {fileID: 276198703}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -362,6 +363,48 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &276198703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276198698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5120f4d76898ab849828f326e9dd7772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 977223333}
+  cutScene: {fileID: 731587423}
+  loadingScreen: {fileID: 1593281110}
+  chargingStone: {fileID: 2008822905}
+  chargingAnimation:
+  - {fileID: 21300000, guid: 04648729f192ee34e97125af0c7a3f1a, type: 3}
+  - {fileID: 21300000, guid: f1cd2f2cb746cd24c915086bf84e9fd9, type: 3}
+  - {fileID: 21300000, guid: 4e0aff1bc1329c54fa9a6593bddd9fea, type: 3}
+  - {fileID: 21300000, guid: 64cb13702cb7ebe4188223dfbae77f36, type: 3}
+  - {fileID: 21300000, guid: a2360306f2818714e8ace564726b7b49, type: 3}
+  - {fileID: 21300000, guid: a2360306f2818714e8ace564726b7b49, type: 3}
+  - {fileID: 21300000, guid: 85b6dad2002f47c4cb50b8abda58b44d, type: 3}
+  - {fileID: 21300000, guid: 4f364e6a7e8732f46a11b1d20697162f, type: 3}
+  - {fileID: 21300000, guid: 0b049da0cd194934fa8b1abfe8feb1b9, type: 3}
+  - {fileID: 21300000, guid: 910ce84c88506bb4e909d19c99d2495f, type: 3}
+  - {fileID: 21300000, guid: e25fb01d3eb81a544b5cb901f2bbca5f, type: 3}
+  - {fileID: 21300000, guid: 9e8f8f84dd049614ea9e51fc90019ade, type: 3}
+  - {fileID: 21300000, guid: d485810d4be6f8940850040cbc4b6caf, type: 3}
+  - {fileID: 21300000, guid: 732d664d220ea984b9461226ecd9461a, type: 3}
+  - {fileID: 21300000, guid: 61e32277ac52eb54f8a28a67b5e6f7e4, type: 3}
+  - {fileID: 21300000, guid: c12587f17add4aa419ec6aca28b015a7, type: 3}
+  - {fileID: 21300000, guid: f30feffa9da061745935f1fecca9d41c, type: 3}
+  - {fileID: 21300000, guid: 4ef98549dbcebce4a851d60ada082e82, type: 3}
+  - {fileID: 21300000, guid: 90b1efea934dd0149aae60e56ba1bb6a, type: 3}
+  - {fileID: 21300000, guid: 5348408480eceee4e9aaf7781db51acf, type: 3}
+  - {fileID: 21300000, guid: 3b9da5bc0dfd4634cb8f4fb33e5f4174, type: 3}
+  - {fileID: 21300000, guid: 0cf2a3e82dbd4a146a48d8593869ff6e, type: 3}
+  - {fileID: 21300000, guid: c5228d99b9710e542994663ed6409805, type: 3}
+  - {fileID: 21300000, guid: 6721cf5e7428ff44a9a7ddf5e3c8de45, type: 3}
+  - {fileID: 21300000, guid: d6268ec8fe9a6e54d887609cfdf9b597, type: 3}
 --- !u!1 &396333662
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +520,6 @@ GameObject:
   - component: {fileID: 731587425}
   - component: {fileID: 731587424}
   - component: {fileID: 731587423}
-  - component: {fileID: 731587428}
   m_Layer: 0
   m_Name: CutScene
   m_TagString: Untagged
@@ -608,46 +650,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: 90}
---- !u!114 &731587428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731587422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5120f4d76898ab849828f326e9dd7772, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 977223333}
-  loadingScreen: {fileID: 1593281110}
-  chargingStone: {fileID: 2008822905}
-  chargingAnimation:
-  - {fileID: 21300000, guid: 04648729f192ee34e97125af0c7a3f1a, type: 3}
-  - {fileID: 21300000, guid: f1cd2f2cb746cd24c915086bf84e9fd9, type: 3}
-  - {fileID: 21300000, guid: 4e0aff1bc1329c54fa9a6593bddd9fea, type: 3}
-  - {fileID: 21300000, guid: 64cb13702cb7ebe4188223dfbae77f36, type: 3}
-  - {fileID: 21300000, guid: a2360306f2818714e8ace564726b7b49, type: 3}
-  - {fileID: 21300000, guid: 85b6dad2002f47c4cb50b8abda58b44d, type: 3}
-  - {fileID: 21300000, guid: 4f364e6a7e8732f46a11b1d20697162f, type: 3}
-  - {fileID: 21300000, guid: 0b049da0cd194934fa8b1abfe8feb1b9, type: 3}
-  - {fileID: 21300000, guid: 910ce84c88506bb4e909d19c99d2495f, type: 3}
-  - {fileID: 21300000, guid: e25fb01d3eb81a544b5cb901f2bbca5f, type: 3}
-  - {fileID: 21300000, guid: 9e8f8f84dd049614ea9e51fc90019ade, type: 3}
-  - {fileID: 21300000, guid: d485810d4be6f8940850040cbc4b6caf, type: 3}
-  - {fileID: 21300000, guid: 732d664d220ea984b9461226ecd9461a, type: 3}
-  - {fileID: 21300000, guid: 61e32277ac52eb54f8a28a67b5e6f7e4, type: 3}
-  - {fileID: 21300000, guid: c12587f17add4aa419ec6aca28b015a7, type: 3}
-  - {fileID: 21300000, guid: f30feffa9da061745935f1fecca9d41c, type: 3}
-  - {fileID: 21300000, guid: 4ef98549dbcebce4a851d60ada082e82, type: 3}
-  - {fileID: 21300000, guid: 90b1efea934dd0149aae60e56ba1bb6a, type: 3}
-  - {fileID: 21300000, guid: 5348408480eceee4e9aaf7781db51acf, type: 3}
-  - {fileID: 21300000, guid: 3b9da5bc0dfd4634cb8f4fb33e5f4174, type: 3}
-  - {fileID: 21300000, guid: 0cf2a3e82dbd4a146a48d8593869ff6e, type: 3}
-  - {fileID: 21300000, guid: c5228d99b9710e542994663ed6409805, type: 3}
-  - {fileID: 21300000, guid: 6721cf5e7428ff44a9a7ddf5e3c8de45, type: 3}
-  - {fileID: 21300000, guid: d6268ec8fe9a6e54d887609cfdf9b597, type: 3}
 --- !u!1 &977223333
 GameObject:
   m_ObjectHideFlags: 0

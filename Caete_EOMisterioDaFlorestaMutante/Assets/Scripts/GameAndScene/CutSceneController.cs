@@ -9,7 +9,7 @@ public class CutSceneController : MonoBehaviour
 {
     public GameObject text;
 
-    private VideoPlayer cutScene;
+    public VideoPlayer cutScene;
 
 
     public GameObject loadingScreen;
@@ -20,7 +20,7 @@ public class CutSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cutScene = GetComponent<VideoPlayer>();
+        
     }
 
     // Update is called once per frame
@@ -69,7 +69,8 @@ public class CutSceneController : MonoBehaviour
             int frameIndex = Mathf.RoundToInt(progress * (chargingAnimation.Length - 1));
             chargingStone.sprite = chargingAnimation[frameIndex];
 
-            Debug.Log(asyncLoad.progress);
+            Debug.Log(frameIndex);
+
             // Sai do loop quando o progresso é 100% e todos os frames foram exibidos
             if (asyncLoad.progress >= 0.9f && frameIndex >= chargingAnimation.Length - 1)
             {
