@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 4705374398641838834}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6016986463244215959
 GameObject:
@@ -220,7 +220,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.9519567, b: 0.6462264, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.8
   m_Range: 1.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

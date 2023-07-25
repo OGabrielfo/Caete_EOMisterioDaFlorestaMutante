@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     private bool _isClimbing = false;
     private bool _isSwiming = false;
     private bool _isSwinging = false;
-    private bool _isDashing = false;
+    [SerializeField]public bool _isDashing = false;
     private bool _isWallJumping = false;
     private bool _invulneravel = false;
     //private float _timer = 2f;

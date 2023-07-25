@@ -47,7 +47,7 @@ public class BossController : MonoBehaviour
     private void LateUpdate()
     {
         RectTransform HPRect = controleHP.transform as RectTransform;
-        HPRect.sizeDelta = new Vector2(HPRect.sizeDelta.x, 15.8f * life);
+        HPRect.sizeDelta = new Vector2(HPRect.sizeDelta.x, 20.85f * life);
     }
 
     public void DeadBoss()
