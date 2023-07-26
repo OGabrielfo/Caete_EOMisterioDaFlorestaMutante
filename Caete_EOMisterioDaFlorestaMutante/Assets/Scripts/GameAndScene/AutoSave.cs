@@ -21,6 +21,7 @@ public class AutoSave : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.gameObject.GetComponent<PlayerController>().vida = other.gameObject.GetComponent<PlayerController>().vidaMax;
             _sceneController.SaveGame();
         }
     }

@@ -84,7 +84,7 @@ public class SceneController : MonoBehaviour
         }
 
         #region TESTE DE HABILIDADES
-        if (Input.GetKeyDown(KeyCode.Keypad0))
+        if (Input.GetKeyDown(KeyCode.Keypad0) || Input.GetKeyDown(KeyCode.Alpha0))
         {
             gameController._mula = 0;
             gameController._mapinguari = 0;
@@ -93,7 +93,7 @@ public class SceneController : MonoBehaviour
             gameController._homem = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
         {
             gameController._mula = 1;
             gameController._mapinguari = 0;
@@ -102,7 +102,7 @@ public class SceneController : MonoBehaviour
             gameController._homem = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
         {
             gameController._mula = 1;
             gameController._mapinguari = 1;
