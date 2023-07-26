@@ -7,6 +7,9 @@ public class VidaMaxPlus : MonoBehaviour
 {
     public string objectName;
     public GameController gameController;
+
+    public AudioClip pegando;
+    public AudioSource audioControl;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,8 @@ public class VidaMaxPlus : MonoBehaviour
                     break;
                 default: break;
             }
+            audioControl.clip = pegando;
+            audioControl.Play();
             gameController.SaveGame();
             Destroy(gameObject);
         }

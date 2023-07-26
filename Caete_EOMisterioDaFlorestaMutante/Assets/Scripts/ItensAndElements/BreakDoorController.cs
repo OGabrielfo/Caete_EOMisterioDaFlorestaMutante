@@ -5,6 +5,8 @@ using UnityEngine;
 public class BreakDoorController : MonoBehaviour
 {
     public GameObject breakParticles;
+    public AudioClip breaking;
+    public AudioSource audioControl;
 
     private MeshRenderer _mesh;
     private BoxCollider _col;
@@ -34,6 +36,9 @@ public class BreakDoorController : MonoBehaviour
 
     IEnumerator DestroyDoor()
     {
+        audioControl.clip = breaking;
+        audioControl.Play();
+
         breakParticles.SetActive(true);
         _mesh.enabled = false;
         _col.enabled = false;

@@ -31,8 +31,12 @@ public class PlayerAudioController : MonoBehaviour
     }
     public void AudioDeath()
     {
-        audioControl.clip = death;
-        audioControl.Play();
+        if(audioControl.clip != death)
+        {
+            audioControl.clip = death;
+            audioControl.Play();
+        }
+        
     }
     public void AudioIsDamage()
     {

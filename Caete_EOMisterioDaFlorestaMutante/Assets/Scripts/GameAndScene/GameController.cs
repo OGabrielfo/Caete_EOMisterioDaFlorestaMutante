@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 30;
         if (PlayerPrefs.HasKey("gamePlayed"))
         {
             _gamePlayed = PlayerPrefs.GetInt("gamePlayed");

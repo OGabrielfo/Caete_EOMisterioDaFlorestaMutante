@@ -10,6 +10,9 @@ public class EnemyBatController : MonoBehaviour
 
     public PlayerIdentifier playerIdentifier;
 
+    public AudioClip dano, morte, ataque, voando;
+    public AudioSource audioControl;
+
     private Animator _anim;
     [HideInInspector] public Rigidbody _rb;
     private GameObject _player;
@@ -29,6 +32,11 @@ public class EnemyBatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_rb.velocity != Vector3.zero)
+        {
+            audioControl.clip = voando;
+            audioControl.Play();
+        }
         Flip();
     }
 
@@ -67,6 +75,8 @@ public class EnemyBatController : MonoBehaviour
     {
         if (vida > 0)
         {
+            audioControl.clip = dano;
+            audioControl.Play();
             vida--;
             _anim.SetTrigger("TakeDamage");
         }
@@ -74,6 +84,11 @@ public class EnemyBatController : MonoBehaviour
 
     public void EnemyDead()
     {
+        if (audioControl.clip != morte)
+        {
+            audioControl.clip = morte;
+            audioControl.Play();
+        }
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
         
@@ -104,6 +119,7 @@ public class EnemyBatController : MonoBehaviour
         }
         else
         {
+            audioControl.clip = null;
             _rb.velocity = Vector3.zero;
         }
     }
@@ -129,6 +145,8 @@ public class EnemyBatController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            audioControl.clip = ataque;
+            audioControl.Play();
             collision.gameObject.GetComponent<PlayerController>().SendMessage("ReceberDano");
         }
     }

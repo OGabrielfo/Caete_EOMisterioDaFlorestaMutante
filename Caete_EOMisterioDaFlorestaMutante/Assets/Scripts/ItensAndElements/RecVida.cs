@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class RecVida : MonoBehaviour
 {
+    public AudioClip pegando;
+    public AudioSource audioControl;
+    
     private SpriteRenderer _spriteRenderer;
     private BoxCollider _collider;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +29,8 @@ public class RecVida : MonoBehaviour
         if (other.gameObject.CompareTag("Player")) {
             if (other.gameObject.GetComponent<PlayerController>().vida < other.gameObject.GetComponent<PlayerController>().vidaMax)
             {
+                audioControl.clip = pegando;
+                audioControl.Play();
                 other.gameObject.GetComponent<PlayerController>().vida++;
                 StartCoroutine("CoolDown");
             }

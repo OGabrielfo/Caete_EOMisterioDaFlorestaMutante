@@ -12,6 +12,10 @@ public class BossMulaController : MonoBehaviour
     public int vidaTotal;
     public float waitTime;
     [HideInInspector] public bool TakeDamage;
+    public AudioClip dano, pedras, corrida, morte, posBattleAbience;
+    public AudioSource audioControl;
+
+    public MusicAndAmbienceAudioController ambienceController;
 
     public Transform[] stonePositions;
     public GameObject[] stoneObjects;
@@ -70,6 +74,9 @@ public class BossMulaController : MonoBehaviour
 
     public void RunAttack()
     {
+        audioControl.clip = corrida;
+        audioControl.Play();
+
         if (sides.Length == 0) return;
 
         Transform currentTarget = sides[_currentSide];
@@ -108,6 +115,8 @@ public class BossMulaController : MonoBehaviour
         {
             barraHP.GetComponent<Animator>().SetTrigger("Damage");
             _damageCounter++;
+            audioControl.clip = dano;
+            audioControl.Play();
             if (_damageCounter > 2)
             {
                 _damageCounter = 0;
@@ -151,10 +160,20 @@ public class BossMulaController : MonoBehaviour
 
     public void StoneAttack()
     {
+        audioControl.clip = pedras;
+        audioControl.Play();
         for (int i = 0; i < (6 - (int)Mathf.Floor(_vidaAtual / 2)); i++)
         {
             Instantiate(stoneObjects[Random.Range(0, stoneObjects.Length)], stonePositions[Random.Range(0, stonePositions.Length)].transform.position, transform.rotation);
         }
+    }
+
+    public void AudioDeath()
+    {
+        audioControl.clip = morte;
+        audioControl.Play();
+        ambienceController.ambienceClip = posBattleAbience;
+        ambienceController.musicClip = null;
     }
 
 }

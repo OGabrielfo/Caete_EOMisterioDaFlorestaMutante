@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     public int vidaTotal;
     public float speed;
     public float attackDistance;
+    public AudioClip dano, morte, javaliAttack;
+    public AudioSource audioControl;
 
     public PlayerIdentifier playerIdentifier;
 
@@ -105,6 +107,8 @@ public class EnemyController : MonoBehaviour
     {
         if (vida > 0 && !_invulneravel)
         {
+            audioControl.clip = dano;
+            audioControl.Play();
             vida--;
             _anim.SetTrigger("TakeDamage");
         }
@@ -144,6 +148,17 @@ public class EnemyController : MonoBehaviour
 
     public void DeathExplosion()
     {
+        if (audioControl.clip != morte)
+        {
+            audioControl.clip = morte;
+            audioControl.Play();
+        }
         explosionFX.SetActive(true);
+    }
+
+    public void JavaliAttack()
+    {
+        audioControl.clip = javaliAttack;
+        audioControl.Play();
     }
 }

@@ -9,6 +9,9 @@ public class EnemyFrogController : MonoBehaviour
 
     public GameObject frogFire, firePoint, explosionFX;
 
+    public AudioClip dano, morte, ataque;
+    public AudioSource audioControl;
+
     private int vida;
     private bool _dead;
     private Animator _anim;
@@ -54,6 +57,8 @@ public class EnemyFrogController : MonoBehaviour
         StartCoroutine("FrogFireDelay");
         if (!_dead)
         {
+            audioControl.clip = ataque;
+            audioControl.Play();
             GameObject bullet = Instantiate(frogFire, firePoint.transform.position, Quaternion.identity);
             bullet.GetComponent<EnemyFrogFire>().SetFallVelocity(fireFallVelocity, gameObject.GetComponent<SpriteRenderer>().flipX);
             bullet.layer = LayerMask.NameToLayer("Attacks");
@@ -72,6 +77,8 @@ public class EnemyFrogController : MonoBehaviour
     {
         if (vida > 0)
         {
+            audioControl.clip = dano;
+            audioControl.Play();
             vida--;
             _anim.SetTrigger("TakeDamage");
         }
@@ -80,6 +87,11 @@ public class EnemyFrogController : MonoBehaviour
 
     public void EnemyDead()
     {
+        if (audioControl.clip != morte)
+        {
+            audioControl.clip = morte;
+            audioControl.Play();
+        }
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<CapsuleCollider>().enabled = false;
         StopCoroutine("FrogFireDelay");
