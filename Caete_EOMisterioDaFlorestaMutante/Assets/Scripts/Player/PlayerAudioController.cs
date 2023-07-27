@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAudioController : MonoBehaviour
 {
     public AudioSource audioControl;
-    public AudioClip fall, climb, attack, death, isDamage, gainPower, steps, jump;
+    public AudioClip fall, climb, attack, death, isDamage, gainPower, steps, jump, dash;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +53,12 @@ public class PlayerAudioController : MonoBehaviour
     public void AudioJump()
     {
         audioControl.clip = jump;
+        audioControl.Play();
+    }
+
+    public void AudioDash()
+    {
+        audioControl.clip = dash;
         audioControl.Play();
     }
 }

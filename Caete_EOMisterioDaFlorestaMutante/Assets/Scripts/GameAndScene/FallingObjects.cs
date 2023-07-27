@@ -6,6 +6,8 @@ public class FallingObjects : MonoBehaviour
 {
     public GameObject parentObject, rockExplosion;
 
+    public AudioSource audioControl;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,14 +28,16 @@ public class FallingObjects : MonoBehaviour
             rockExplosion.SetActive(true);
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.GetComponent<MeshRenderer>().enabled = false;
+            audioControl.Play();
             StartCoroutine("DestroyObject");
         }
 
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Enemy"))
         {
             rockExplosion.SetActive(true);
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.GetComponent<MeshRenderer>().enabled = false;
+            audioControl.Play();
             StartCoroutine("DestroyObject");
         }
     }

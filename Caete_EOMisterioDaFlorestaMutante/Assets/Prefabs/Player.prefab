@@ -79,7 +79,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 2030
@@ -290,6 +290,7 @@ MonoBehaviour:
   dashDistance: 12
   dashTime: 0.3
   dashCooldown: 2
+  _isDashing: 0
   jumpLimit: 1
   dashCounter: 0
   _canDash: 1
@@ -483,8 +484,9 @@ MonoBehaviour:
   death: {fileID: 8300000, guid: 527e853d1cc6da146810380d2519ef91, type: 3}
   isDamage: {fileID: 8300000, guid: c64b366d4922d5242b2873d3a52c22dc, type: 3}
   gainPower: {fileID: 8300000, guid: c75fbda1098a69749a4ef299423ea189, type: 3}
-  steps: {fileID: 0}
-  jump: {fileID: 0}
+  steps: {fileID: 8300000, guid: 6fd77db52ee2d824f9eb99983d72432b, type: 3}
+  jump: {fileID: 8300000, guid: 74b008bbf56b5cf4d99bd834e2ce2699, type: 3}
+  dash: {fileID: 8300000, guid: 9e7af9c8a667f2045aa1d3f4c6d5a60b, type: 3}
 --- !u!1 &3614814852441557936
 GameObject:
   m_ObjectHideFlags: 0

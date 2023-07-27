@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossMulaController : MonoBehaviour
 {
     public string bossName;
-    public GameObject attackCol, runAttack, barraHP;
+    public GameObject attackCol, runAttack, barraHP, tutorialDash;
     public BossController bossController;
     public Transform[] sides;
     public float speed;
@@ -55,6 +55,11 @@ public class BossMulaController : MonoBehaviour
         {
             _anim.SetInteger("RandomAction", 0);
             _counter = _counterLimit;
+        }
+
+        if (_vidaAtual < 1)
+        {
+            tutorialDash.SetActive(true);
         }
 
         Flip();
